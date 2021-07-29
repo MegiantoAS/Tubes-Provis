@@ -86,6 +86,7 @@
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
+<<<<<<< Updated upstream
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -94,6 +95,35 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Component id="jSeparator6" min="-2" pref="642" max="-2" attributes="0"/>
+=======
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jSeparator6" min="-2" pref="645" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -105,19 +135,30 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                   <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
+<<<<<<< Updated upstream
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+=======
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
+<<<<<<< Updated upstream
                   <EmptySpace pref="24" max="32767" attributes="0"/>
+=======
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
+>>>>>>> Stashed changes
               </Group>
           </Group>
         </DimensionLayout>
@@ -147,7 +188,11 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                   <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\graduates.png"/>
+=======
+                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\graduates.png"/>
+>>>>>>> Stashed changes
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Mahasiswa"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -166,7 +211,11 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                   <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\book.png"/>
+=======
+                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\book.png"/>
+>>>>>>> Stashed changes
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Mata Kuliah"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -185,7 +234,11 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                   <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\one-hundred.png"/>
+=======
+                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\one-hundred.png"/>
+>>>>>>> Stashed changes
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Nilai"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -204,7 +257,11 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                   <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\calculator.png"/>
+=======
+                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\calculator.png"/>
+>>>>>>> Stashed changes
                 </Property>
                 <Property name="text" type="java.lang.String" value="Simulasi Nilai Akhir"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -223,7 +280,11 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                   <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\responsive.png"/>
+=======
+                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\responsive.png"/>
+>>>>>>> Stashed changes
                 </Property>
                 <Property name="text" type="java.lang.String" value="Simulasi Kasus"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -238,14 +299,22 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
               <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\10119077foto.jpg"/>
+=======
+              <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\10119077foto.jpg"/>
+>>>>>>> Stashed changes
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
               <Image iconType="2" name="C:\Users\RAF\Documents\NetBeansProjects\IF2-10119060-10119077\img\XXNR9065.JPG"/>
+=======
+              <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\XXNR9065.JPG"/>
+>>>>>>> Stashed changes
             </Property>
           </Properties>
         </Component>
