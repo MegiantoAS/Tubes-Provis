@@ -62,11 +62,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-<<<<<<< Updated upstream
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\graduates.png")); // NOI18N
-=======
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\graduates.png")); // NOI18N
->>>>>>> Stashed changes
         jButton1.setText("Data Mahasiswa");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -76,11 +72,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-<<<<<<< Updated upstream
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\book.png")); // NOI18N
-=======
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\book.png")); // NOI18N
->>>>>>> Stashed changes
         jButton2.setText("Data Mata Kuliah");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -90,11 +82,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 153, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-<<<<<<< Updated upstream
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\one-hundred.png")); // NOI18N
-=======
         jButton3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\one-hundred.png")); // NOI18N
->>>>>>> Stashed changes
         jButton3.setText("Data Nilai");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -104,25 +92,22 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(0, 153, 153));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-<<<<<<< Updated upstream
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\calculator.png")); // NOI18N
-=======
         jButton4.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\calculator.png")); // NOI18N
->>>>>>> Stashed changes
         jButton4.setText("Simulasi Nilai Akhir");
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton4);
         jToolBar1.add(jSeparator4);
 
         jButton5.setBackground(new java.awt.Color(0, 153, 153));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-<<<<<<< Updated upstream
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\responsive.png")); // NOI18N
-=======
         jButton5.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\responsive.png")); // NOI18N
->>>>>>> Stashed changes
         jButton5.setText("Simulasi Kasus");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -130,15 +115,9 @@ public class frm_utama extends javax.swing.JFrame {
         jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator5);
 
-<<<<<<< Updated upstream
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\10119077foto.jpg")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\XXNR9065.JPG")); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\RAF\\Documents\\NetBeansProjects\\IF2-10119060-10119077\\img\\XXNR9065.JPG")); // NOI18N
-=======
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\10119077foto.jpg")); // NOI18N
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\XXNR9065.JPG")); // NOI18N
->>>>>>> Stashed changes
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\10119077foto.jpg")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("10119060 - Megianto Adi Saputra");
@@ -151,51 +130,26 @@ public class frm_utama extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(32, 32, 32))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel5)
-                        .addGap(155, 155, 155)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)))
                 .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
-<<<<<<< Updated upstream
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)))
-=======
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addGap(16, 16, 16))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)))
-                        .addGap(44, 44, 44)))
->>>>>>> Stashed changes
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,28 +157,17 @@ public class frm_utama extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< Updated upstream
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-=======
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
->>>>>>> Stashed changes
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-<<<<<<< Updated upstream
-                .addContainerGap(24, Short.MAX_VALUE))
-=======
-                .addContainerGap(25, Short.MAX_VALUE))
->>>>>>> Stashed changes
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -259,6 +202,10 @@ public class frm_utama extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
