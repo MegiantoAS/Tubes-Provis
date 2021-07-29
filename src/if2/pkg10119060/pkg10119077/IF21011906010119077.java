@@ -16,6 +16,8 @@ public class IF21011906010119077 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        frm_utama utama = new frm_utama();
+        utama.setVisible(true);
     }
     
 }
