@@ -565,6 +565,7 @@ import java.util.Date;
         btn_tambah.setEnabled(true);
         btn_simpan.setEnabled(true);
         btn_batal.setEnabled(true);
+        btn_keluar.setEnabled(true);
         membersihkan_teks();
     }//GEN-LAST:event_btn_batalActionPerformed
 
