@@ -17,6 +17,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
     koneksi dbsetting;
     String driver,database,user,pass;
     Object tabel;
+    
     /**
      * Creates new form frm_nilai_mhs
      */
@@ -29,9 +30,12 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         user = dbsetting.SettingPanel("DBUsername");
         pass = dbsetting.SettingPanel("DBPassword ");
         tabel_nilai_mhs.setModel(tableModel);
+        
+        
         settableload();
         tampil_combo_nama();
         tampil_combo_kdmk();
+        tahun_sekarang();
     }
      private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
      private javax.swing.table.DefaultTableModel getDefaultTabelModel()
@@ -54,6 +58,13 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             }
             };
         }
+     
+     public void tahun_sekarang(){
+         Date yn=new Date();
+         SimpleDateFormat y=new SimpleDateFormat("yyyy");
+         txt_angkatan.setText(y.format(yn));
+     }
+     
      public void tampil_combo_nama(){
         try{
             Class.forName(driver);
@@ -125,8 +136,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 data[2] = res.getString(3);
                 data[3] = res.getString(4);
                 data[4] = res.getString(5);
-                data[5] = res.getString(2);
-                data[6] = res.getString(12);
+                data[5] = res.getString(6);
+                data[6] = res.getString(7);
                 data[7] = res.getString(8);
                 data[8] = res.getString(9);
                 data[9] = res.getString(10);
@@ -148,11 +159,67 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-     
     
-  
-    
+    public void membersihkan_teks()
+        {
+            txt_nim.setText("");
+            txt_kehadiran.setText("");
+            txt_tugas1.setText("");
+            txt_tugas2.setText("");
+            txt_tugas3.setText("");
+            txt_kode_mk.setText("");
+            txt_uts.setText("");
+            txt_uas.setText("");
+            txt_angkatan.setText("");
+        }
+        public void nonaktif_teks()
+        {
+            txt_nim.setEnabled(false);
+            txt_kehadiran.setEnabled(false);
+            txt_tugas1.setEnabled(false);
+            txt_tugas2.setEnabled(false);
+            txt_tugas3.setEnabled(false);
+            txt_kode_mk.setEnabled(false);
+            txt_uts.setEnabled(false);
+            txt_uas.setEnabled(false);
+            txt_angkatan.setEnabled(false);
+            cb_mk.setEnabled(false);
+            cb_nama.setEnabled(false);
+            
+        }
+        public void aktif_teks()
+        {
+            txt_nim.setEnabled(true);
+            txt_kehadiran.setEnabled(true);
+            txt_tugas1.setEnabled(true);
+            txt_tugas2.setEnabled(true);
+            txt_tugas3.setEnabled(true);
+            txt_kode_mk.setEnabled(true);
+            txt_uts.setEnabled(true);
+            txt_uas.setEnabled(true);
+            txt_angkatan.setEnabled(true);
+        }
+        int row = 0;
+        public void tampil_field()
+        {
+            row=tabel_nilai_mhs.getSelectedRow();
+            
+            txt_kehadiran.setText(tableModel.getValueAt(row, 2).toString());
+            txt_tugas1.setText(tableModel.getValueAt(row, 3).toString());
+            txt_tugas2.setText(tableModel.getValueAt(row, 4).toString());
+            txt_tugas3.setText(tableModel.getValueAt(row, 5).toString());
+            
+            txt_uts.setText(tableModel.getValueAt(row, 6).toString());
+            txt_uas.setText(tableModel.getValueAt(row, 7).toString());
+            
+            btn_simpan.setEnabled(false);
+            btn_ubah.setEnabled(true);
+            btn_hapus.setEnabled(true);
+            btn_batal.setEnabled(false);
+            aktif_teks();
 
+        }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -262,6 +329,11 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
         cb_nama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "==PILIH NAMA==" }));
         cb_nama.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cb_nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_namaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setText("NIM");
@@ -283,6 +355,11 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
         cb_mk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "==PILIH NAMA MK==" }));
         cb_mk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cb_mk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_mkActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel11.setText("Kode MK");
@@ -321,6 +398,11 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         btn_tambah.setText("Tambah");
         btn_tambah.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
         btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
         btn_ubah.setBackground(new java.awt.Color(255, 255, 51));
         btn_ubah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -345,6 +427,11 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         btn_simpan.setText("Simpan");
         btn_simpan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
         btn_simpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_simpanActionPerformed(evt);
+            }
+        });
 
         btn_keluar.setBackground(new java.awt.Color(255, 0, 0));
         btn_keluar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -592,6 +679,153 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
               System.exit(0);
         }                           
     }//GEN-LAST:event_txt_cariKeyReleased
+
+    private void cb_namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_namaActionPerformed
+        // TODO add your handling code here:
+        String datacb_nama = (String) cb_nama.getSelectedItem();
+        
+        try
+        {
+          Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL      = "SELECT nim FROM `t_mahasiswa` WHERE `nama` LIKE'%"+datacb_nama+"%'";
+                ResultSet res=stt.executeQuery(SQL);
+                while(res.next()) 
+                {
+                data[0] = res.getString(1);
+                }
+                
+                txt_nim.setText(data[0]);
+                
+                res.close();
+                stt.close();
+                kon.close();
+        }
+        catch(Exception ex)
+        {
+           System.err.println(ex.getMessage());  
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+              System.exit(0);
+        }                          
+        
+    }//GEN-LAST:event_cb_namaActionPerformed
+
+    private void cb_mkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_mkActionPerformed
+        // TODO add your handling code here:
+        String datacb_mk = (String) cb_mk.getSelectedItem();
+        
+        try
+        {
+          Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL      = "SELECT kd_mk FROM `t_mata_kuliah` WHERE `nama_mk` LIKE'%"+datacb_mk+"%'";
+                ResultSet res=stt.executeQuery(SQL);
+                while(res.next()) 
+                {
+                data[0] = res.getString(1);
+                }
+                
+                txt_kode_mk.setText(data[0]);
+                
+                res.close();
+                stt.close();
+                kon.close();
+        }
+        catch(Exception ex)
+        {
+           System.err.println(ex.getMessage());  
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+              System.exit(0);
+        }     
+    }//GEN-LAST:event_cb_mkActionPerformed
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        // TODO add your handling code here:
+            membersihkan_teks();
+            txt_nim.requestFocus();
+            btn_simpan.setEnabled(true);
+            btn_ubah.setEnabled(false);
+            btn_hapus.setEnabled(false);
+            btn_keluar.setEnabled(true);
+            aktif_teks();       
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
+        // TODO add your handling code here:
+        String indeks, ket;
+        
+        double nilai_absen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*5)/100);
+        double nilai_tugas = ((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText())/3)*(25/100));
+        double nilai_uts = (Double.valueOf(txt_uts.getText())*(30/100));
+        double nilai_uas = (Double.valueOf(txt_uas.getText())*(40/100));
+        
+        double nilai_akhir = ((((Double.valueOf(txt_kehadiran.getText())/14)*100*5)/100))+(((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText())/3)*(25/100)))+((Double.valueOf(txt_uts.getText())*(30/100)))+((Double.valueOf(txt_uas.getText())*(40/100)));
+        if (nilai_akhir <= 100 && nilai_akhir >= 80) {
+            indeks = "A";
+            ket = "Lulus";
+        } else if (nilai_akhir <= 79 && nilai_akhir >= 68) {
+            indeks = "B";
+            ket = "Lulus";
+        } else if (nilai_akhir <= 67 && nilai_akhir >= 56) {
+            indeks = "C";
+            ket = "Lulus";
+        } else if (nilai_akhir <= 55 && nilai_akhir >= 45) {
+            indeks = "D";
+            ket = "Tidak Lulus";
+        } else {
+            indeks = "E";
+            ket = "Tidak Lulus";
+        }
+        
+        
+        if ((cb_nama.getSelectedItem() == null) || (cb_mk.getSelectedItem() == null) || (txt_kehadiran.getText().isEmpty()) || (txt_tugas1.getText().isEmpty()) || 
+                (txt_tugas2.getText().isEmpty()) || (txt_tugas3.getText().isEmpty()) || (txt_uts.getText().isEmpty()) || (txt_uas.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "data tidak boleh kosong, silahkan dilengkapi");
+        }
+        else{
+            try{
+                Class.forName(driver);
+                Connection kon = DriverManager.getConnection(database, user, pass);
+                Statement stt = kon.createStatement();
+                String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket) "
+                        + "VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.valueOf(txt_kehadiran.getText())+", "+txt_tugas1.getText()+""
+                        + ", "+txt_tugas2.getText()+", "+txt_tugas3.getText()+", "+txt_uts.getText()+", "+txt_uas.getText()+", "+nilai_absen+","
+                        + " "+nilai_tugas+", "+nilai_uts+", "+nilai_uas+", "+nilai_akhir+", '"+indeks+"', '"+ket+"')";
+            
+            stt.executeUpdate(SQL);
+            data[0] = txt_nim.getText();
+            data[1] = txt_kode_mk.getText();
+            data[2] = txt_kehadiran.getText();
+            data[3] = txt_tugas1.getText();
+            data[4] = txt_tugas2.getText();
+            data[5] = txt_tugas3.getText();
+            data[6] = txt_uts.getText();
+            data[7] = txt_uas.getText();
+            data[8] = String.valueOf(nilai_absen);
+            data[9] = String.valueOf(nilai_tugas);
+            data[10] = String.valueOf(nilai_uts);
+            data[11] = String.valueOf(nilai_uas);
+            data[12] = String.valueOf(nilai_akhir);
+            data[13] = indeks;
+            data[14] = ket;
+            
+            tableModel.insertRow(0, data);
+            stt.close();
+            kon.close();
+            membersihkan_teks();
+            btn_simpan.setEnabled(false);
+            
+            }
+            
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btn_simpanActionPerformed
 
     /**
      * @param args the command line arguments

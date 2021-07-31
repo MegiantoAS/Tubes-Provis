@@ -260,6 +260,8 @@ protected void tema(){
         // TODO add your handling code here:
         frm_tentang tentang = new frm_tentang();
         tentang.setVisible(true);
+        
+        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
