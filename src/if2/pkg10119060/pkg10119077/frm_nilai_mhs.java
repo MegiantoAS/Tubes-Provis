@@ -4,19 +4,141 @@
  * and open the template in the editor.
  */
 package if2.pkg10119060.pkg10119077;
-
+import javax.swing.*;
+//fungsi import yang digunakan untuk SQL
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author RAF
  */
 public class frm_nilai_mhs extends javax.swing.JFrame {
-
+    koneksi dbsetting;
+    String driver,database,user,pass;
+    Object tabel;
     /**
      * Creates new form frm_nilai_mhs
      */
+    
     public frm_nilai_mhs() {
         initComponents();
+        dbsetting = new koneksi();
+        driver = dbsetting.SettingPanel("DBDriver"); 
+        database = dbsetting.SettingPanel("DBDatabase");
+        user = dbsetting.SettingPanel("DBUsername");
+        pass = dbsetting.SettingPanel("DBPassword ");
+        tabel_nilai_mhs.setModel(tableModel);
+        settableload();
+        tampil_combo_nama();
+        tampil_combo_kdmk();
     }
+     private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
+     private javax.swing.table.DefaultTableModel getDefaultTabelModel()
+            {
+//        judul header
+        return new javax.swing.table.DefaultTableModel
+        (
+                new Object[][]{},
+                new String [] {"NIM","Kode Matakuliah","Nilai","Index","Keterangan"}
+        )
+        {
+            boolean[] canEdit = new boolean[]
+            {
+                false, false, false, false, false
+            };
+            
+            public boolean isCellEdittable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+            };
+        }
+     public void tampil_combo_nama(){
+        try{
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select nama from t_mahasiswa order by nama";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next()){
+                Object[] ob1 = new Object[3];
+                ob1[0] = res.getString(1);
+                
+            cb_nama.addItem((String) ob1[0]);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch(Exception ex){
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error", JOptionPane.INFORMATION_MESSAGE);
+            
+            System.exit(0);
+        }
+     }
+     
+     public void tampil_combo_kdmk(){
+        try{
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select nama_mk from t_mata_kuliah order by nama_mk";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next()){
+                Object[] ob1 = new Object[3];
+                ob1[0] = res.getString(1);
+                
+                cb_mk.addItem((String) ob1[0]);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch(Exception ex){
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error", JOptionPane.INFORMATION_MESSAGE);
+            
+            System.exit(0);
+        }
+    }
+     
+     String data[]=new String[5];
+    private void settableload()
+    {
+        String stat = "";
+        try
+        {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select * from t_nilai";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next())
+            {
+                data[0] = res.getString(2);
+                data[1] = res.getString(3);
+                data[2] = res.getString(4);
+                data[3] = res.getString(5);
+                data[4] = res.getString(6);
+                tableModel.addRow(data);
+            }
+               res.close();
+               stt.close();
+               kon.close();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+    }
+     
+    
+  
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,14 +178,14 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txt_angkatan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table_nilai_mhs = new javax.swing.JTable();
+        tabel_nilai_mhs = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        btn_tambah = new javax.swing.JButton();
+        btn_ubah = new javax.swing.JButton();
+        btn_batal = new javax.swing.JButton();
+        btn_hapus = new javax.swing.JButton();
+        btn_simpan = new javax.swing.JButton();
+        btn_keluar = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -94,6 +216,12 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Masukan Data");
+
+        txt_cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_cariKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,8 +286,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel14.setText("Angkatan");
 
-        table_nilai_mhs.setBackground(new java.awt.Color(204, 204, 204));
-        table_nilai_mhs.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_nilai_mhs.setBackground(new java.awt.Color(204, 204, 204));
+        tabel_nilai_mhs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -170,46 +298,46 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(table_nilai_mhs);
+        jScrollPane1.setViewportView(tabel_nilai_mhs);
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 255, 255), new java.awt.Color(102, 255, 255), null, null));
 
-        jButton7.setBackground(new java.awt.Color(153, 255, 0));
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton7.setText("Tambah");
-        jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_tambah.setBackground(new java.awt.Color(153, 255, 0));
+        btn_tambah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_tambah.setText("Tambah");
+        btn_tambah.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 51));
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton8.setText("Ubah");
-        jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_ubah.setBackground(new java.awt.Color(255, 255, 51));
+        btn_ubah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_ubah.setText("Ubah");
+        btn_ubah.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_ubah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton9.setBackground(new java.awt.Color(255, 0, 51));
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton9.setText("Batal");
-        jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_batal.setBackground(new java.awt.Color(255, 0, 51));
+        btn_batal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_batal.setText("Batal");
+        btn_batal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_batal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton10.setBackground(new java.awt.Color(255, 51, 51));
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton10.setText("Hapus");
-        jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_hapus.setBackground(new java.awt.Color(255, 51, 51));
+        btn_hapus.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_hapus.setText("Hapus");
+        btn_hapus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton11.setBackground(new java.awt.Color(255, 204, 0));
-        jButton11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton11.setText("Simpan");
-        jButton11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_simpan.setBackground(new java.awt.Color(255, 204, 0));
+        btn_simpan.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_simpan.setText("Simpan");
+        btn_simpan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_simpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton12.setBackground(new java.awt.Color(255, 0, 0));
-        jButton12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton12.setText("Keluar");
-        jButton12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_keluar.setBackground(new java.awt.Color(255, 0, 0));
+        btn_keluar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_keluar.setText("Keluar");
+        btn_keluar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_keluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -217,17 +345,17 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76))
         );
         jPanel4Layout.setVerticalGroup(
@@ -235,12 +363,12 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -419,6 +547,37 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formComponentAdded
 
+    private void txt_cariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cariKeyReleased
+        // TODO add your handling code here:
+         tableModel.setRowCount(0);
+        try
+        {
+          Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL      = "SELECT * FROM `t_nilai` WHERE `kd_mk` LIKE'%"+txt_cari.getText()+"%'" + "OR nim LIKE '%" + txt_cari.getText() + "%'";
+                ResultSet res=stt.executeQuery(SQL);
+                while(res.next()) 
+                {
+                data[0] = res.getString(2);
+                data[1] = res.getString(3);
+                data[2] = res.getString(4);
+                data[3] = res.getString(5);
+                data[4] = res.getString(6);
+                tableModel.addRow(data);
+                }
+                res.close();
+                stt.close();
+                kon.close();
+        }
+        catch(Exception ex)
+        {
+           System.err.println(ex.getMessage());  
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+              System.exit(0);
+        }                           
+    }//GEN-LAST:event_txt_cariKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -455,14 +614,14 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_batal;
+    private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_keluar;
+    private javax.swing.JButton btn_simpan;
+    private javax.swing.JButton btn_tambah;
+    private javax.swing.JButton btn_ubah;
     private javax.swing.JComboBox<String> cb_mk;
     private javax.swing.JComboBox<String> cb_nama;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -484,7 +643,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable table_nilai_mhs;
+    private javax.swing.JTable tabel_nilai_mhs;
     private javax.swing.JTextField txt_angkatan;
     private javax.swing.JTextField txt_cari;
     private javax.swing.JTextField txt_kehadiran;

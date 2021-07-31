@@ -581,7 +581,7 @@ import java.util.Date;
             Class.forName(driver);
             Connection kon  = DriverManager.getConnection(database, user, pass);
             Statement stt   = kon.createStatement();
-            String SQL      = "SELECT * FROM t_mata_kuliah WHERE kd_mk like'%"+txt_carimatkul.getText()+"%'";
+            String SQL      = "SELECT * FROM t_mata_kuliah WHERE kd_mk like'%"+txt_carimatkul.getText()+"%'" + "OR nama_mk LIKE '%" + txt_carimatkul.getText()+"%'" ;
             ResultSet res=stt.executeQuery(SQL);
             while(res.next())
             {
