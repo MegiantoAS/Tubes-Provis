@@ -71,7 +71,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\graduates.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\graduates.png")); // NOI18N
         jButton1.setText("Data Mahasiswa");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -88,7 +88,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\book.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\book.png")); // NOI18N
         jButton2.setText("Data Mata Kuliah");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -105,7 +105,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 153, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\one-hundred.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\one-hundred.png")); // NOI18N
         jButton3.setText("Data Nilai");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -122,7 +122,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(0, 153, 153));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\calculator.png")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\calculator.png")); // NOI18N
         jButton4.setText("Simulasi Nilai Akhir");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -139,7 +139,7 @@ public class frm_utama extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(0, 153, 153));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\responsive.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\responsive.png")); // NOI18N
         jButton5.setText("Simulasi Kasus");
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -149,9 +149,9 @@ public class frm_utama extends javax.swing.JFrame {
         jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator5);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\XXNR9065.JPG")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\XXNR9065.JPG")); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\10119077foto.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\10119077foto.jpg")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("10119060 - Megianto Adi Saputra");
@@ -172,7 +172,7 @@ public class frm_utama extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -204,7 +204,7 @@ public class frm_utama extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
@@ -212,7 +212,7 @@ public class frm_utama extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");

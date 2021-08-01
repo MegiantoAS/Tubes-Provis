@@ -42,12 +42,12 @@ public class frm_tentang extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\10119077foto.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\10119077foto.jpg")); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel5.setText("10119077 - Ridhwan Anwar Fauzan");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\IF2-10119060-10119077\\img\\XXNR9065.JPG")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\xampp\\htdocs\\kemahasiswaan_10119060_10119077\\img\\XXNR9065.JPG")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("10119060 - Megianto Adi Saputra");
@@ -92,7 +92,7 @@ public class frm_tentang extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))

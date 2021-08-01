@@ -481,6 +481,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabel_nilai_mhsMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -583,6 +586,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ubahActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_batal">
               <Properties>
@@ -605,6 +611,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_batalActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_hapus">
               <Properties>
@@ -627,6 +636,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_hapusActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_simpan">
               <Properties>

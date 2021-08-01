@@ -76,7 +76,7 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <EmptySpace pref="68" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -119,7 +119,7 @@
                   <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jSeparator6" min="-2" pref="12" max="-2" attributes="0"/>
-                  <EmptySpace min="52" pref="31" max="32767" attributes="0"/>
+                  <EmptySpace min="52" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -159,7 +159,7 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\graduates.png"/>
+                  <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\graduates.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Mahasiswa"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -189,7 +189,7 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\book.png"/>
+                  <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\book.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Mata Kuliah"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -219,7 +219,7 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\one-hundred.png"/>
+                  <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\one-hundred.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Data Nilai"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -249,7 +249,7 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\calculator.png"/>
+                  <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\calculator.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Simulasi Nilai Akhir"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -279,7 +279,7 @@
                   <Font name="Tahoma" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\responsive.png"/>
+                  <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\responsive.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Simulasi Kasus"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -302,14 +302,14 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\XXNR9065.JPG"/>
+              <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\XXNR9065.JPG"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\xampp\htdocs\IF2-10119060-10119077\img\10119077foto.jpg"/>
+              <Image iconType="2" name="C:\xampp\htdocs\kemahasiswaan_10119060_10119077\img\10119077foto.jpg"/>
             </Property>
           </Properties>
         </Component>
