@@ -781,31 +781,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
-        String indeks, ket;
-        double nilai_absen = (((Double.parseDouble(txt_kehadiran.getText())/14)*100*5)/100);
-        double nilai_tugas = ((Double.parseDouble(txt_tugas1.getText())+Double.parseDouble(txt_tugas2.getText())+Double.parseDouble(txt_tugas3.getText())/3)*(25/100));
-        double nilai_uts = (Double.parseDouble(txt_uts.getText())*(30/100));
-        double nilai_uas = (Double.parseDouble(txt_uas.getText())*(40/100));
-        
-        double nilai_akhir = ((((Double.parseDouble(txt_kehadiran.getText())/14)*100*5)/100))+(((Double.parseDouble(txt_tugas1.getText())+Double.parseDouble(txt_tugas2.getText())+Double.parseDouble(txt_tugas3.getText())/3)*(25/100)))+((Double.parseDouble(txt_uts.getText())*(30/100)))+((Double.parseDouble(txt_uas.getText())*(40/100)));
-        if (nilai_akhir <= 100 && nilai_akhir >= 80) {
-            indeks = "A";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 79 && nilai_akhir >= 68) {
-            indeks = "B";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 67 && nilai_akhir >= 56) {
-            indeks = "C";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 55 && nilai_akhir >= 45) {
-            indeks = "D";
-            ket = "Tidak Lulus";
-        } else {
-            indeks = "E";
-            ket = "Tidak Lulus";
-        }
-        
-        
+      
+         
         if ((cb_nama.getSelectedItem() == null) || (cb_mk.getSelectedItem() == null) || (txt_kehadiran.getText().isEmpty()) || (txt_tugas1.getText().isEmpty()) || 
                 (txt_tugas2.getText().isEmpty()) || (txt_tugas3.getText().isEmpty()) || (txt_uts.getText().isEmpty()) || (txt_uas.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "data tidak boleh kosong, silahkan dilengkapi");
@@ -815,10 +792,9 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket) "
+                String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, angkatan) "
                         + "VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.parseDouble(txt_kehadiran.getText())+", "+txt_tugas1.getText()+""
-                        + ", "+txt_tugas2.getText()+", "+txt_tugas3.getText()+", "+txt_uts.getText()+", "+txt_uas.getText()+", "+nilai_absen+","
-                        + " "+nilai_tugas+", "+nilai_uts+", "+nilai_uas+", "+nilai_akhir+", '"+indeks+"', '"+ket+"')";
+                        + ", "+txt_tugas2.getText()+", "+txt_tugas3.getText()+", "+txt_uts.getText()+", "+txt_uas.getText()+", '"+txt_angkatan.getText()+"')";
             
             stt.executeUpdate(SQL);
             data[0] = txt_nim.getText();
@@ -829,13 +805,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             data[5] = txt_tugas3.getText();
             data[6] = txt_uts.getText();
             data[7] = txt_uas.getText();
-            data[8] = Double.toString(nilai_absen);
-            data[9] = Double.toString(nilai_tugas);
-            data[10] = Double.toString(nilai_uts);
-            data[11] = Double.toString(nilai_uas);
-            data[12] = Double.toString(nilai_akhir);
-            data[13] = indeks;
-            data[14] = ket;
+            data[10] = txt_angkatan.getText();
+            
             
             tableModel.insertRow(0, data);
             stt.close();
@@ -848,7 +819,6 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
             }
-            
         }
         
     }//GEN-LAST:event_btn_simpanActionPerformed
@@ -905,7 +875,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String indeks, ket;
-        double nilai_akhir = (double) tableModel.getValueAt(row, 5);
+        double nilai_akhir = (double) tableModel.getValueAt(row, 13);
         if (nilai_akhir <= 100 && nilai_akhir >= 80) {
             indeks = "A";
             ket = "Lulus";
@@ -933,7 +903,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "UPDATE t_nilai SET absensi="+txt_kehadiran.getText()+",tugas1="+txt_tugas1.getText()+",tugas2=";";
+                String SQL = "UPDATE t_nilai SET absensi="+txt_kehadiran.getText()+",tugas1="+txt_tugas1.getText()+",tugas2="+txt_tugas2.getText()+",tugas3="+txt_tugas3.getText()+",uts="+txt_uts.getText()+",uas="+txt_uas.getText()+",angkatan='"+txt_angkatan.getText()+"';";
             
             stt.executeUpdate(SQL);
             
@@ -943,6 +913,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             data[5] = txt_tugas3.getText();
             data[6] = txt_uts.getText();
             data[7] = txt_uas.getText();
+            data[10] = txt_angkatan.getText();
             
             
             tableModel.insertRow(0, data);
