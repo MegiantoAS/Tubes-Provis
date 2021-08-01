@@ -125,8 +125,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
             String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk, t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, "
-                            + "t_nilai.tugas3, t_nilai.uts, t_nilai.uas, t_nilai.nilai_absen, t_nilai.nilai_tugas, t_nilai.nilai_uts, "
-                            + "t_nilai.nilai_uas, t_nilai.nilai_akhir, t_nilai.indeks, t_nilai.ket FROM t_mahasiswa, t_mata_kuliah, t_nilai "
+                            + "t_nilai.tugas3, t_nilai.uts, t_nilai.uas, fungsi_perhitungan.nilaiabsensi, fungsi_perhitungan.nilaitugas, fungsi_perhitungan.nilaiuts, "
+                            + "fungsi_perhitungan.nilaiuas, fungsi_perhitungan.nilaiakhir, t_nilai.indeks, t_nilai.ket FROM t_mahasiswa, t_mata_kuliah, t_nilai, fungsi_perhitungan "
                             + "WHERE t_nilai.kd_mk = t_mata_kuliah.kd_mk AND t_nilai.nim = t_mahasiswa.nim";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next())
@@ -903,20 +903,9 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
-        String absensi = txt_kehadiran.getText();
-        String tugas1 = txt_tugas1.getText();
-        String tugas2 = txt_tugas2.getText(); 
-        String tugas3 = txt_tugas3.getText();
-        String uts = txt_uts.getText();
-        String uas = txt_uas.getText();
         
         String indeks, ket;
-        double nilai_absen = (((Double.parseDouble(txt_kehadiran.getText())/14)*100*5)/100);
-        double nilai_tugas = ((Double.parseDouble(txt_tugas1.getText())+Double.parseDouble(txt_tugas2.getText())+Double.parseDouble(txt_tugas3.getText())/3)*(25/100));
-        double nilai_uts = (Double.parseDouble(txt_uts.getText())*(30/100));
-        double nilai_uas = (Double.parseDouble(txt_uas.getText())*(40/100));
-        
-        double nilai_akhir = ((((Double.parseDouble(txt_kehadiran.getText())/14)*100*5)/100))+(((Double.parseDouble(txt_tugas1.getText())+Double.parseDouble(txt_tugas2.getText())+Double.parseDouble(txt_tugas3.getText())/3)*(25/100)))+((Double.parseDouble(txt_uts.getText())*(30/100)))+((Double.parseDouble(txt_uas.getText())*(40/100)));
+        double nilai_akhir = (double) tableModel.getValueAt(row, 5);
         if (nilai_akhir <= 100 && nilai_akhir >= 80) {
             indeks = "A";
             ket = "Lulus";
@@ -944,7 +933,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "UPDATE t_nilai SET absensi= "+Double.parseDouble(absensi)+", tugas1="+Double.parseDouble(tugas1)+", tugas2="+Double.parseDouble(tugas2)+", tugas3="+Double.parseDouble(tugas3)+", uts="+Double.parseDouble(uts)+", uas="+Double.parseDouble(uas)+" WHERE nim='"+tableModel.getValueAt(row, 0).toString()+"';";
+                String SQL = "UPDATE t_nilai SET 
             
             stt.executeUpdate(SQL);
             
