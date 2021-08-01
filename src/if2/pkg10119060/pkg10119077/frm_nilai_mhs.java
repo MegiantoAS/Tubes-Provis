@@ -903,7 +903,14 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
-         String indeks, ket;
+        String absensi = txt_kehadiran.getText();
+        String tugas1 = txt_tugas1.getText();
+        String tugas2 = txt_tugas2.getText(); 
+        String tugas3 = txt_tugas3.getText();
+        String uts = txt_uts.getText();
+        String uas = txt_uas.getText();
+        
+        String indeks, ket;
         double nilai_absen = (((Double.parseDouble(txt_kehadiran.getText())/14)*100*5)/100);
         double nilai_tugas = ((Double.parseDouble(txt_tugas1.getText())+Double.parseDouble(txt_tugas2.getText())+Double.parseDouble(txt_tugas3.getText())/3)*(25/100));
         double nilai_uts = (Double.parseDouble(txt_uts.getText())*(30/100));
@@ -937,24 +944,17 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "UPDATE t_nilai SET nim= '";
+                String SQL = "UPDATE t_nilai SET absensi= "+Double.parseDouble(absensi)+", tugas1="+Double.parseDouble(tugas1)+", tugas2="+Double.parseDouble(tugas2)+", tugas3="+Double.parseDouble(tugas3)+", uts="+Double.parseDouble(uts)+", uas="+Double.parseDouble(uas)+" WHERE nim='"+tableModel.getValueAt(row, 0).toString()+"';";
             
             stt.executeUpdate(SQL);
-            data[0] = txt_nim.getText();
-            data[1] = txt_kode_mk.getText();
+            
             data[2] = txt_kehadiran.getText();
             data[3] = txt_tugas1.getText();
             data[4] = txt_tugas2.getText();
             data[5] = txt_tugas3.getText();
             data[6] = txt_uts.getText();
             data[7] = txt_uas.getText();
-            data[8] = Double.toString(nilai_absen);
-            data[9] = Double.toString(nilai_tugas);
-            data[10] = Double.toString(nilai_uts);
-            data[11] = Double.toString(nilai_uas);
-            data[12] = Double.toString(nilai_akhir);
-            data[13] = indeks;
-            data[14] = ket;
+            
             
             tableModel.insertRow(0, data);
             stt.close();
@@ -967,6 +967,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
             }
+        }
     }//GEN-LAST:event_btn_ubahActionPerformed
 
     /**
