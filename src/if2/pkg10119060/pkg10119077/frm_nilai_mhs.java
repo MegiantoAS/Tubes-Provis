@@ -933,7 +933,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "UPDATE t_nilai SET 
+                String SQL = "UPDATE t_nilai SET absensi="+txt_kehadiran.getText()+",tugas1="+txt_tugas1.getText()+",tugas2=";";
             
             stt.executeUpdate(SQL);
             
