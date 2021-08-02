@@ -5,6 +5,12 @@
  */
 package if2.pkg10119060.pkg10119077;
 
+import javax.swing.*;
+//fungsi import yang digunakan untuk SQL
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author RAF
@@ -15,7 +21,7 @@ public class frm_simulasi_na extends javax.swing.JFrame {
      * Creates new form frm_simulasi_na
      */
     public frm_simulasi_na() {
-        initComponents();
+     
     }
 
     /**
@@ -135,8 +141,13 @@ public class frm_simulasi_na extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 13)); // NOI18N
         jLabel9.setText("Pertemuan");
 
-        cb_mk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "~~PILIH NAMA MK~~" }));
+        cb_mk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "==PILIH NAMA MK==" }));
         cb_mk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cb_mk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_mkActionPerformed(evt);
+            }
+        });
 
         table_simulasi_na.setBackground(new java.awt.Color(204, 204, 204));
         table_simulasi_na.setModel(new javax.swing.table.DefaultTableModel(
@@ -383,7 +394,7 @@ public class frm_simulasi_na extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel21)
                                     .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -414,6 +425,10 @@ public class frm_simulasi_na extends javax.swing.JFrame {
         frm_utama utama = new frm_utama();
          utama.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void cb_mkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_mkActionPerformed
+        // TODO add your handling code here
+    }//GEN-LAST:event_cb_mkActionPerformed
 
     /**
      * @param args the command line arguments

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2021 at 04:26 PM
+-- Generation Time: Aug 02, 2021 at 02:07 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.21
 
@@ -24,15 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `fungsi_perhitungan`
+-- Stand-in structure for view `hitungnilai`
 -- (See below for the actual view)
 --
-CREATE TABLE `fungsi_perhitungan` (
+CREATE TABLE `hitungnilai` (
 `nilaiabsensi` double
 ,`nilaitugas` double
 ,`nilaiuts` double
 ,`nilaiuas` double
 ,`nilaiakhir` double
+,`indeks` varchar(1)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `keterangan`
+-- (See below for the actual view)
+--
+CREATE TABLE `keterangan` (
+`ket` varchar(11)
 );
 
 -- --------------------------------------------------------
@@ -100,38 +111,34 @@ CREATE TABLE `t_nilai` (
   `tugas2` double NOT NULL,
   `tugas3` double NOT NULL,
   `uts` double NOT NULL,
-  `uas` double NOT NULL,
-  `indeks` char(5) NOT NULL,
-  `ket` varchar(20) NOT NULL,
-  `angkatan` varchar(50) NOT NULL
+  `uas` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `t_nilai`
 --
 
-INSERT INTO `t_nilai` (`kd_nilai`, `nim`, `kd_mk`, `absensi`, `tugas1`, `tugas2`, `tugas3`, `uts`, `uas`, `indeks`, `ket`, `angkatan`) VALUES
-(19, '10105120', 'IF34348', 1, 2, 3, 4, 5, 6, 'A', 'Lulus', ''),
-(20, '10119060', 'IF99191', 14, 80, 40, 40, 50, 50, 'E', 'Tidak Lulus', ''),
-(21, '10105122', 'IF256544', 1, 2, 3, 4, 5, 6, 'E', 'Tidak Lulus', ''),
-(22, '10105120', 'IF99191', 1, 2, 3, 4, 5, 6, 'E', 'Tidak Lulus', ''),
-(23, '10105122', 'IF256544', 14, 50, 25, 30, 50, 50, 'E', 'Tidak Lulus', ''),
-(24, '10105122', 'IF99191', 10, 25, 25, 25, 20, 20, 'E', 'Tidak Lulus', ''),
-(25, '10119060', 'IF256544', 14, 25, 55, 25, 10, 52, 'E', 'Tidak Lulus', ''),
-(26, '10105120', 'IF34348', 1000, 55, 55, 55, 55, 55, 'E', 'Tidak Lulus', ''),
-(27, '10119060', 'IF37325P', 500, 55, 55, 55, 55, 55, 'E', 'Tidak Lulus', ''),
-(28, '10105120', 'IF256544', 300, 22, 22, 22, 22, 22, 'E', 'Tidak Lulus', ''),
-(29, '10105120', 'IF99191', 200, 33, 33, 33, 33, 33, 'B', 'Lulus', ''),
-(30, '10105120', 'IF256544', 40, 20, 20, 20, 20, 20, 'E', 'Tidak Lulus', '');
+INSERT INTO `t_nilai` (`kd_nilai`, `nim`, `kd_mk`, `absensi`, `tugas1`, `tugas2`, `tugas3`, `uts`, `uas`) VALUES
+(31, '10105121', 'IF34348', 14, 80, 80, 80, 80, 80),
+(32, '10105120', 'IF34348', 14, 100, 100, 100, 100, 100);
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `fungsi_perhitungan`
+-- Structure for view `hitungnilai`
 --
-DROP TABLE IF EXISTS `fungsi_perhitungan`;
+DROP TABLE IF EXISTS `hitungnilai`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `fungsi_perhitungan`  AS SELECT `t_nilai`.`absensi`/ 14 * 100 * 5 / 100 AS `nilaiabsensi`, (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3` / 3) * (25 / 100) AS `nilaitugas`, `t_nilai`.`uts`* 30 / 100 AS `nilaiuts`, `t_nilai`.`uas`* 40 / 100 AS `nilaiuas`, `t_nilai`.`absensi`/ 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3` / 3) * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 AS `nilaiakhir` FROM `t_nilai` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `hitungnilai`  AS SELECT `t_nilai`.`absensi`/ 14 * 100 * 5 / 100 AS `nilaiabsensi`, (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) AS `nilaitugas`, `t_nilai`.`uts`* 30 / 100 AS `nilaiuts`, `t_nilai`.`uas`* 40 / 100 AS `nilaiuas`, `t_nilai`.`absensi`/ 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 AS `nilaiakhir`, CASE WHEN `t_nilai`.`absensi` / 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 > 79 THEN 'A' WHEN `t_nilai`.`absensi` / 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 > 67 THEN 'B' WHEN `t_nilai`.`absensi` / 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 > 55 THEN 'C' WHEN `t_nilai`.`absensi` / 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 > 44 THEN 'D' WHEN `t_nilai`.`absensi` / 14 * 100 * 5 / 100 + (`t_nilai`.`tugas1` + `t_nilai`.`tugas2` + `t_nilai`.`tugas3`) / 3 * (25 / 100) + `t_nilai`.`uts` * 30 / 100 + `t_nilai`.`uas` * 40 / 100 >= 0 THEN 'E' END AS `indeks` FROM `t_nilai` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `keterangan`
+--
+DROP TABLE IF EXISTS `keterangan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `keterangan`  AS SELECT CASE WHEN `hitungnilai`.`nilaiakhir` > 79 THEN 'LULUS' WHEN `hitungnilai`.`nilaiakhir` > 67 THEN 'LULUS' WHEN `hitungnilai`.`nilaiakhir` > 55 THEN 'LULUS' WHEN `hitungnilai`.`nilaiakhir` > 44 THEN 'TIDAK LULUS' WHEN `hitungnilai`.`nilaiakhir` >= 0 THEN 'TIDAK LULUS' END AS `ket` FROM `hitungnilai` ;
 
 --
 -- Indexes for dumped tables
@@ -165,7 +172,7 @@ ALTER TABLE `t_nilai`
 -- AUTO_INCREMENT for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
-  MODIFY `kd_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `kd_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables

@@ -124,10 +124,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk, t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, "
-                            + "t_nilai.tugas3, t_nilai.uts, t_nilai.uas, fungsi_perhitungan.nilaiabsensi, fungsi_perhitungan.nilaitugas, fungsi_perhitungan.nilaiuts, "
-                            + "fungsi_perhitungan.nilaiuas, fungsi_perhitungan.nilaiakhir, t_nilai.indeks, t_nilai.ket FROM t_mahasiswa, t_mata_kuliah, t_nilai, fungsi_perhitungan "
-                            + "WHERE t_nilai.kd_mk = t_mata_kuliah.kd_mk AND t_nilai.nim = t_mahasiswa.nim";
+            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk,t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, t_nilai.tugas3, t_nilai.uts, t_nilai.uas, hitungnilai.nilaiabsensi, hitungnilai.nilaitugas, hitungnilai.nilaiuts, hitungnilai.nilaiuas, hitungnilai.nilaiakhir, hitungnilai.indeks, keterangan.ket FROM t_mahasiswa, t_nilai, t_mata_kuliah, hitungnilai, keterangan WHERE t_nilai.nim = t_mahasiswa.nim ";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next())
             {
@@ -781,46 +778,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
-      
-         
-        if ((cb_nama.getSelectedItem() == null) || (cb_mk.getSelectedItem() == null) || (txt_kehadiran.getText().isEmpty()) || (txt_tugas1.getText().isEmpty()) || 
-                (txt_tugas2.getText().isEmpty()) || (txt_tugas3.getText().isEmpty()) || (txt_uts.getText().isEmpty()) || (txt_uas.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "data tidak boleh kosong, silahkan dilengkapi");
-        }
-        else{
-            try{
-                Class.forName(driver);
-                Connection kon = DriverManager.getConnection(database, user, pass);
-                Statement stt = kon.createStatement();
-                String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, angkatan) "
-                        + "VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.parseDouble(txt_kehadiran.getText())+", "+txt_tugas1.getText()+""
-                        + ", "+txt_tugas2.getText()+", "+txt_tugas3.getText()+", "+txt_uts.getText()+", "+txt_uas.getText()+", '"+txt_angkatan.getText()+"')";
-            
-            stt.executeUpdate(SQL);
-            data[0] = txt_nim.getText();
-            data[1] = txt_kode_mk.getText();
-            data[2] = txt_kehadiran.getText();
-            data[3] = txt_tugas1.getText();
-            data[4] = txt_tugas2.getText();
-            data[5] = txt_tugas3.getText();
-            data[6] = txt_uts.getText();
-            data[7] = txt_uas.getText();
-            data[10] = txt_angkatan.getText();
-            
-            
-            tableModel.insertRow(0, data);
-            stt.close();
-            kon.close();
-            membersihkan_teks();
-            btn_simpan.setEnabled(false);
-            
-            }
-            
-            catch(Exception ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        
+       
     }//GEN-LAST:event_btn_simpanActionPerformed
 
     private void tabel_nilai_mhsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_nilai_mhsMouseClicked
@@ -873,61 +831,41 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
-        
-        String indeks, ket;
-        double nilai_akhir = (double) tableModel.getValueAt(row, 13);
-        if (nilai_akhir <= 100 && nilai_akhir >= 80) {
-            indeks = "A";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 79 && nilai_akhir >= 68) {
-            indeks = "B";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 67 && nilai_akhir >= 56) {
-            indeks = "C";
-            ket = "Lulus";
-        } else if (nilai_akhir <= 55 && nilai_akhir >= 45) {
-            indeks = "D";
-            ket = "Tidak Lulus";
-        } else {
-            indeks = "E";
-            ket = "Tidak Lulus";
+         String data[]=new String[15];
+        if(cb_nama.getSelectedItem()==("==PILIH NAMA==") || (cb_mk.getSelectedItem()==("==PILIH NAMA MK==")))
+        {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+            cb_nama.requestFocus();
         }
-        
-        
-        if ((cb_nama.getSelectedItem() == null) || (cb_mk.getSelectedItem() == null) || (txt_kehadiran.getText().isEmpty()) || (txt_tugas1.getText().isEmpty()) || 
-                (txt_tugas2.getText().isEmpty()) || (txt_tugas3.getText().isEmpty()) || (txt_uts.getText().isEmpty()) || (txt_uas.getText().isEmpty())) {
-            JOptionPane.showMessageDialog(null, "data tidak boleh kosong, silahkan dilengkapi");
-        }
-        else{
-            try{
-                Class.forName(driver);
-                Connection kon = DriverManager.getConnection(database, user, pass);
-                Statement stt = kon.createStatement();
-                String SQL = "UPDATE t_nilai SET absensi="+txt_kehadiran.getText()+",tugas1="+txt_tugas1.getText()+",tugas2="+txt_tugas2.getText()+",tugas3="+txt_tugas3.getText()+",uts="+txt_uts.getText()+",uas="+txt_uas.getText()+",angkatan='"+txt_angkatan.getText()+"';";
-            
-            stt.executeUpdate(SQL);
-            
-            data[2] = txt_kehadiran.getText();
-            data[3] = txt_tugas1.getText();
-            data[4] = txt_tugas2.getText();
-            data[5] = txt_tugas3.getText();
-            data[6] = txt_uts.getText();
-            data[7] = txt_uas.getText();
-            data[10] = txt_angkatan.getText();
-            
-            
-            tableModel.insertRow(0, data);
-            stt.close();
-            kon.close();
-            membersihkan_teks();
-            btn_simpan.setEnabled(false);
-            
+         else
+        {
+            try
+            {
+               Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL = "UPDATE ";
+
+//                stt.executeUpdate(SQL);
+//                data[0] = (String) jnim.getSelectedItem();
+//                data[1] = (String) jkdmk.getSelectedItem();
+//                data[2] = txt_nilai.getText();
+//                data[3] = indeks;
+//                data[4] = keterangan;
+                tableModel.removeRow(row);
+                tableModel.insertRow(0, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                btn_simpan.setEnabled(false);
+                nonaktif_teks();
             }
-            
-            catch(Exception ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            catch (Exception ex)
+            {
+              System.err.println(ex.getMessage());
             }
         }
+       
     }//GEN-LAST:event_btn_ubahActionPerformed
 
     /**
