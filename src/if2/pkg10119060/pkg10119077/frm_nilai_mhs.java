@@ -124,7 +124,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk,t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, t_nilai.tugas3, t_nilai.uts, t_nilai.uas, hitungnilai.nilaiabsensi, hitungnilai.nilaitugas, hitungnilai.nilaiuts, hitungnilai.nilaiuas, hitungnilai.nilaiakhir, hitungnilai.indeks, keterangan.ket FROM t_mahasiswa, t_nilai, t_mata_kuliah, hitungnilai, keterangan WHERE t_nilai.nim = t_mahasiswa.nim ";
+            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk,t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, t_nilai.tugas3, t_nilai.uts, t_nilai.uas, hitungnilai.nilaiabsensi, hitungnilai.nilaitugas, hitungnilai.nilaiuts, hitungnilai.nilaiuas, hitungnilai.nilaiakhir, hitungnilai.indeks, keterangan.ket FROM t_mahasiswa, t_nilai, t_mata_kuliah, hitungnilai, keterangan WHERE t_nilai.nim = t_mahasiswa.nim AND t_nilai.kd_mk = t_mata_kuliah.kd_mk ";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next())
             {
