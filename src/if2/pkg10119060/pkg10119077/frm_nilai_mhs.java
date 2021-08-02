@@ -124,7 +124,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database,user,pass);
             Statement stt=kon.createStatement();
-            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk,t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, t_nilai.tugas3, t_nilai.uts, t_nilai.uas, hitungnilai.nilaiabsensi, hitungnilai.nilaitugas, hitungnilai.nilaiuts, hitungnilai.nilaiuas, hitungnilai.nilaiakhir, hitungnilai.indeks, keterangan.ket FROM t_mahasiswa, t_nilai, t_mata_kuliah, hitungnilai, keterangan WHERE t_nilai.nim = t_mahasiswa.nim AND t_nilai.kd_mk = t_mata_kuliah.kd_mk ";
+            String SQL = "select t_mahasiswa.nama, t_mata_kuliah.nama_mk,t_nilai.absensi, t_nilai.tugas1, t_nilai.tugas2, t_nilai.tugas3, t_nilai.uts, t_nilai.uas, t_nilai.nilai_absen, t_nilai.nilai_tugas, t_nilai.nilai_uts, t_nilai.nilai_uas, t_nilai.nilai_akhir, t_nilai.indeks, t_nilai.ket FROM t_nilai JOIN t_mahasiswa ON t_nilai.nim = t_mahasiswa.nim JOIN t_mata_kuliah ON t_nilai.kd_mk = t_mata_kuliah.kd_mk";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next())
             {
@@ -778,6 +778,75 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
+         String data[]=new String[14];
+         String indeks;
+         String keterangan;
+         double nilaiabsen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*5)/100);
+         double nilaitugas = ((Double.valueOf(txt_tugas1.getText())+(Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText())/3)*25/100));
+         double nilaiuts   = (Double.valueOf(txt_uts.getText())*30/100);
+         double nilaiuas   = (Double.valueOf(txt_uas.getText())*40/100);
+         double nilaiakhir = nilaiabsen+nilaitugas+nilaiuts+nilaiuas;
+                  
+         if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
+            indeks="A"; //indeks yang didapatkan
+            keterangan="Lulus";
+        }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
+            indeks="B";//indeks yang didapatkan
+            keterangan="lulus";
+        }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
+            indeks="C";//indeks yang didapatkan
+            keterangan="Lulus";
+         }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
+            indeks="D";//indeks yang didapatkan
+            keterangan="Lulus";
+        }else{ //jika tidak semuanya
+            indeks="E";//indeks yang didapatkan
+            keterangan = "Tidak Lulus";
+        }
+         
+        if(cb_nama.getSelectedItem()==("==PILIH NAMA==") || (cb_mk.getSelectedItem()==("==PILIH KODE MK==")))
+        {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+            cb_nama.requestFocus();
+        }
+        else
+        {
+            try
+            { 
+               Class.forName(driver);
+               Connection kon = DriverManager.getConnection(database, user, pass);
+               Statement stt = kon.createStatement();
+               String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket) VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.valueOf(txt_kehadiran.getText())+","+Double.valueOf(txt_tugas1.getText())+","+Double.valueOf(txt_tugas2.getText())+","+Double.valueOf(txt_tugas3.getText())+","+Double.valueOf(txt_uts.getText())+", "+Double.valueOf(txt_uas.getText())+",'"+nilaiabsen+"', '"+nilaiabsen+"', '"+nilaitugas+"', '"+nilaiuts+"', '"+nilaiuas+"', '"+nilaiakhir+"', '"+indeks+"', '"+keterangan+"')";
+            
+                stt.executeUpdate(SQL);
+                data[0] = txt_nim.getText();
+                data[1] = txt_kode_mk.getText();
+                data[2] = txt_kehadiran.getText();
+                data[3] = txt_tugas1.getText();
+                data[4] = txt_tugas2.getText();
+                data[5] = txt_tugas3.getText();
+                data[6] = txt_uts.getText();
+                data[7] = txt_uas.getText();
+                data[8] = String.valueOf(nilaiabsen);
+                data[9] = String.valueOf(nilaitugas);
+                data[10] = String.valueOf(nilaiuts);
+                data[11] = String.valueOf(nilaiuas);
+                data[12] = String.valueOf(nilaiakhir);
+                data[13] = indeks;
+                data[14] = keterangan;
+                tableModel.insertRow(0, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                btn_simpan.setEnabled(false);
+                nonaktif_teks();
+                
+            }
+            catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+                    }
+        }
        
     }//GEN-LAST:event_btn_simpanActionPerformed
 
