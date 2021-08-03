@@ -35,7 +35,6 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         settableload();
         tampil_combo_nama();
         tampil_combo_kdmk();
-        tahun_sekarang();
     }
      private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
      private javax.swing.table.DefaultTableModel getDefaultTabelModel()
@@ -61,8 +60,12 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
      
      public void tahun_sekarang(){
          Date yn=new Date();
-         SimpleDateFormat y=new SimpleDateFormat("yyyy");
-         txt_angkatan.setText(y.format(yn));
+         SimpleDateFormat y=new SimpleDateFormat("yyyy-MM-dd");
+         txt_angkatan.setDateFormatString(y.format(yn));
+         
+          String tampilan = "YYYY-MM-dd";
+          SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+          txt_angkatan.setDate(yn);
      }
      
      public void tampil_combo_nama(){
@@ -164,7 +167,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             txt_tugas3.setText("");
             txt_uts.setText("");
             txt_uas.setText("");
-            txt_angkatan.setText("");
+            txt_angkatan.setDateFormatString("");
             cb_nama.setSelectedIndex(0);
             cb_mk.setSelectedIndex(0);
             txt_nim.setText("");
@@ -215,10 +218,12 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             txt_uts.setText(tableModel.getValueAt(row, 6).toString());
             txt_uas.setText(tableModel.getValueAt(row, 7).toString());
             
+            
             btn_simpan.setEnabled(false);
             btn_ubah.setEnabled(true);
             btn_hapus.setEnabled(true);
             btn_batal.setEnabled(false);
+            tahun_sekarang();
             aktif_teks();
 
         }
@@ -259,7 +264,6 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txt_uas = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        txt_angkatan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_nilai_mhs = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -272,6 +276,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        txt_angkatan = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nilai Mahasiswa");
@@ -461,6 +466,11 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         btn_keluar.setText("Keluar");
         btn_keluar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
         btn_keluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_keluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -501,6 +511,8 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        txt_angkatan.setDateFormatString("yyyy-mm-dd");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -514,39 +526,20 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(244, 244, 244)
                             .addComponent(jLabel1)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(370, 370, 370)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel14))
-                                        .addGap(72, 72, 72)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_uts, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel15)
-                                    .addGap(218, 218, 218)))
-                            .addGap(26, 26, 26))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(207, 207, 207))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(207, 207, 207)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(134, 134, 134)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,12 +564,31 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 81, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                                .addGap(370, 370, 370)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel11)
+                                                .addComponent(jLabel13)
+                                                .addComponent(jLabel12)
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                    .addGap(7, 7, 7)
+                                                    .addComponent(jLabel14)))
+                                            .addGap(65, 65, 65)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txt_uts, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txt_kode_mk, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                                .addComponent(txt_angkatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addGap(218, 218, 218)))))
+                        .addGap(0, 92, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -632,9 +644,9 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                                     .addComponent(jLabel12)
                                     .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel14)
-                                    .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -773,26 +785,40 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             btn_hapus.setEnabled(false);
             btn_keluar.setEnabled(true);
             btn_batal.setEnabled(true);
+            tahun_sekarang();
             aktif_teks();       
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
-         String data[]=new String[14];
+                  
+        if(cb_nama.getSelectedItem()==("==PILIH NAMA==") || (cb_mk.getSelectedItem()==("==PILIH KODE MK==") || txt_nim.getText().isEmpty() || txt_kode_mk.getText().isEmpty() || txt_kehadiran.getText().isEmpty() || txt_tugas1.getText().isEmpty() || txt_tugas2.getText().isEmpty() || txt_tugas3.getText().isEmpty() || txt_uts.getText().isEmpty() || txt_uas.getText().isEmpty() || txt_angkatan.getDateFormatString().isEmpty()))
+        {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+            cb_nama.requestFocus();
+        }
+        else
+        {
+            if (Double.valueOf(txt_kehadiran.getText()) > 14) {
+                 JOptionPane.showMessageDialog(null,"Kehadiran tidak boleh lebih dari 14");
+                 txt_kehadiran.requestFocus();
+            }else{
+                
+         String data[]=new String[16];
          String indeks;
          String keterangan;
          double nilaiabsen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*5)/100);
-         double nilaitugas = ((Double.valueOf(txt_tugas1.getText())+(Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText())/3)*25/100));
+         double nilaitugas = (((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText()))/3)*25/100);
          double nilaiuts   = (Double.valueOf(txt_uts.getText())*30/100);
          double nilaiuas   = (Double.valueOf(txt_uas.getText())*40/100);
          double nilaiakhir = nilaiabsen+nilaitugas+nilaiuts+nilaiuas;
-                  
-         if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
+         
+          if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
             indeks="A"; //indeks yang didapatkan
             keterangan="Lulus";
         }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
             indeks="B";//indeks yang didapatkan
-            keterangan="lulus";
+            keterangan="Lulus";
         }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
             indeks="C";//indeks yang didapatkan
             keterangan="Lulus";
@@ -802,22 +828,18 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         }else{ //jika tidak semuanya
             indeks="E";//indeks yang didapatkan
             keterangan = "Tidak Lulus";
+ 
         }
-         
-        if(cb_nama.getSelectedItem()==("==PILIH NAMA==") || (cb_mk.getSelectedItem()==("==PILIH KODE MK==")))
-        {
-            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
-            cb_nama.requestFocus();
-        }
-        else
-        {
             try
             { 
+               String tampilan = "YYYY-MM-dd";
+               SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+               String tanggal=String.valueOf(fm.format(txt_angkatan.getDate()));
                Class.forName(driver);
                Connection kon = DriverManager.getConnection(database, user, pass);
                Statement stt = kon.createStatement();
-               String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket) VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.valueOf(txt_kehadiran.getText())+","+Double.valueOf(txt_tugas1.getText())+","+Double.valueOf(txt_tugas2.getText())+","+Double.valueOf(txt_tugas3.getText())+","+Double.valueOf(txt_uts.getText())+", "+Double.valueOf(txt_uas.getText())+",'"+nilaiabsen+"', '"+nilaiabsen+"', '"+nilaitugas+"', '"+nilaiuts+"', '"+nilaiuas+"', '"+nilaiakhir+"', '"+indeks+"', '"+keterangan+"')";
-            
+               String SQL = "INSERT INTO t_nilai(nim, kd_mk, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket, angkatan) VALUES('"+txt_nim.getText()+"', '"+txt_kode_mk.getText()+"', "+Double.valueOf(txt_kehadiran.getText())+","+Double.valueOf(txt_tugas1.getText())+","+Double.valueOf(txt_tugas2.getText())+","+Double.valueOf(txt_tugas3.getText())+","+Double.valueOf(txt_uts.getText())+", "+Double.valueOf(txt_uas.getText())+","+nilaiabsen+", "+nilaitugas+", "+nilaiuts+", "+nilaiuas+", "+nilaiakhir+", '"+indeks+"', '"+keterangan+"','"+tanggal+"')";
+          
                 stt.executeUpdate(SQL);
                 data[0] = txt_nim.getText();
                 data[1] = txt_kode_mk.getText();
@@ -834,6 +856,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                 data[12] = String.valueOf(nilaiakhir);
                 data[13] = indeks;
                 data[14] = keterangan;
+                data[15] = txt_angkatan.getDateFormatString();
                 tableModel.insertRow(0, data);
                 stt.close();
                 kon.close();
@@ -847,7 +870,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
                     }
         }
-       
+        }
     }//GEN-LAST:event_btn_simpanActionPerformed
 
     private void tabel_nilai_mhsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_nilai_mhsMouseClicked
@@ -877,15 +900,14 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-         try
+          try
         {
              Class.forName(driver);
                 Connection kon  = DriverManager.getConnection(database, user, pass);
                 Statement stt   = kon.createStatement();
                 String SQL      = "DELETE From t_nilai "
                                     +"where "
-                                    +"nim='"+tableModel.getValueAt(row, 0).toString()+"'";
-                
+                                    +"nim='"+txt_nim.getText()+"' AND kd_mk = '"+txt_kode_mk.getText()+"'";
                 stt.executeUpdate(SQL);
                 tableModel.removeRow(row);
                 stt.close();
@@ -900,27 +922,77 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
-         String data[]=new String[15];
-        if(cb_nama.getSelectedItem()==("==PILIH NAMA==") || (cb_mk.getSelectedItem()==("==PILIH NAMA MK==")))
+        if((txt_kehadiran.getText().isEmpty() || txt_tugas1.getText().isEmpty() || txt_tugas2.getText().isEmpty() || txt_tugas3.getText().isEmpty() || txt_uts.getText().isEmpty() || txt_uas.getText().isEmpty() || txt_angkatan.getDateFormatString().isEmpty()))
         {
             JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
-            cb_nama.requestFocus();
+            txt_kehadiran.requestFocus();
         }
-         else
+        else
         {
-            try
+            if (Double.valueOf(txt_kehadiran.getText()) > 14) {
+                 JOptionPane.showMessageDialog(null,"Kehadiran tidak boleh lebih dari 14");
+                 txt_kehadiran.requestFocus();
+            }else
             {
+            String data[]=new String[16];
+            String indeks;
+            String keterangan;
+            double nilaiabsen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*5)/100);
+            double nilaitugas = (((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText()))/3)*25/100);
+            double nilaiuts   = (Double.valueOf(txt_uts.getText())*30/100);
+            double nilaiuas   = (Double.valueOf(txt_uas.getText())*40/100);
+            double nilaiakhir = nilaiabsen+nilaitugas+nilaiuts+nilaiuas;
+         
+          if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
+            indeks="A"; //indeks yang didapatkan
+            keterangan="Lulus";
+            }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
+                indeks="B";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
+                indeks="C";//indeks yang didapatkan
+                keterangan="Lulus";
+             }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
+                indeks="D";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else{ //jika tidak semuanya
+                indeks="E";//indeks yang didapatkan
+                keterangan = "Tidak Lulus";
+ 
+        }     
+          try
+            {
+               String tampilan = "YYYY-MM-dd";
+               SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+               String tanggal=String.valueOf(fm.format(txt_angkatan.getDate()));
                Class.forName(driver);
                 Connection kon  = DriverManager.getConnection(database, user, pass);
                 Statement stt   = kon.createStatement();
-                String SQL = "UPDATE ";
+                String SQL = "UPDATE t_nilai SET nim = '"+txt_nim.getText()+"',kd_mk = '"+txt_kode_mk.getText()+"', "
+                        + "absensi="+Double.valueOf(txt_kehadiran.getText())+", tugas1 = "+Double.valueOf(txt_tugas1.getText())+","
+                        + "tugas2 = "+Double.valueOf(txt_tugas2.getText())+",tugas3 = "+Double.valueOf(txt_tugas3.getText())+","
+                        + "uts = "+Double.valueOf(txt_uts.getText())+",uas = "+Double.valueOf(txt_uas.getText())+", nilai_absen = "+nilaiabsen+","
+                        + "nilai_tugas="+nilaitugas+",nilai_uts= "+nilaiuts+",nilai_uas="+nilaiuas+",nilai_akhir = "+nilaiakhir+",indeks='"+indeks+"',ket='"+keterangan+"',"
+                        + "angkatan ='"+ tanggal+"' WHERE nim = '"+txt_nim.getText()+"' AND kd_mk='"+txt_kode_mk.getText()+"'";
 
-//                stt.executeUpdate(SQL);
-//                data[0] = (String) jnim.getSelectedItem();
-//                data[1] = (String) jkdmk.getSelectedItem();
-//                data[2] = txt_nilai.getText();
-//                data[3] = indeks;
-//                data[4] = keterangan;
+                stt.executeUpdate(SQL);
+                data[0] = txt_nim.getText();
+                data[1] = txt_kode_mk.getText();
+                data[2] = txt_kehadiran.getText();
+                data[3] = txt_tugas1.getText();
+                data[4] = txt_tugas2.getText();
+                data[5] = txt_tugas3.getText();
+                data[6] = txt_uts.getText();
+                data[7] = txt_uas.getText();
+                data[8] = String.valueOf(nilaiabsen);
+                data[9] = String.valueOf(nilaitugas);
+                data[10] = String.valueOf(nilaiuts);
+                data[11] = String.valueOf(nilaiuas);
+                data[12] = String.valueOf(nilaiakhir);
+                data[13] = indeks;
+                data[14] = keterangan;
+                data[15] = txt_angkatan.getDateFormatString();
+                
                 tableModel.removeRow(row);
                 tableModel.insertRow(0, data);
                 stt.close();
@@ -933,9 +1005,15 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
             {
               System.err.println(ex.getMessage());
             }
+            }
         }
        
     }//GEN-LAST:event_btn_ubahActionPerformed
+
+    private void btn_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_keluarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btn_keluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1003,7 +1081,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tabel_nilai_mhs;
-    private javax.swing.JTextField txt_angkatan;
+    private com.toedter.calendar.JDateChooser txt_angkatan;
     private javax.swing.JTextField txt_cari;
     private javax.swing.JTextField txt_kehadiran;
     private javax.swing.JTextField txt_kode_mk;

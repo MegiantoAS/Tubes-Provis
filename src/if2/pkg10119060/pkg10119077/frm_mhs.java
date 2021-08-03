@@ -54,6 +54,15 @@ public class frm_mhs extends javax.swing.JFrame {
                 }
                 };
             }
+        public void tahun_sekarang(){
+         Date yn=new Date();
+         SimpleDateFormat y=new SimpleDateFormat("yyyy-MM-dd");
+         txt_tgl_lahir.setDateFormatString(y.format(yn));
+         
+          String tampilan = "YYYY-MM-dd";
+          SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+          txt_tgl_lahir.setDate(yn);
+     }
         
         String data[]=new String[5];
         private void settableload()
@@ -91,7 +100,7 @@ public class frm_mhs extends javax.swing.JFrame {
         {
             txt_nim.setText("");
             txt_nama.setText("");
-            txt_tgl_lahir.setText("");
+            txt_tgl_lahir.setDateFormatString("");
             txt_tempat_lahir.setText("");
             txt_alamat.setText("");
         }
@@ -118,7 +127,7 @@ public class frm_mhs extends javax.swing.JFrame {
             txt_nim.setText(tableModel.getValueAt(row, 0).toString());
             txt_nama.setText(tableModel.getValueAt(row, 1).toString());
             txt_tempat_lahir.setText(tableModel.getValueAt(row, 2).toString());
-            txt_tgl_lahir.setText(tableModel.getValueAt(row, 3).toString());
+            tahun_sekarang();
             txt_alamat.setText(tableModel.getValueAt(row, 4).toString());
             btn_simpan.setEnabled(false);
             btn_ubah.setEnabled(true);
@@ -153,7 +162,6 @@ public class frm_mhs extends javax.swing.JFrame {
         txt_nim = new javax.swing.JTextField();
         txt_nama = new javax.swing.JTextField();
         txt_tempat_lahir = new javax.swing.JTextField();
-        txt_tgl_lahir = new javax.swing.JTextField();
         txt_alamat = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
@@ -167,6 +175,7 @@ public class frm_mhs extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabel_mahasiswa = new javax.swing.JTable();
+        txt_tgl_lahir = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Data Mahasiswa");
@@ -247,8 +256,6 @@ public class frm_mhs extends javax.swing.JFrame {
         txt_nama.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.lightGray, java.awt.Color.cyan, java.awt.Color.white));
 
         txt_tempat_lahir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.lightGray, java.awt.Color.cyan, java.awt.Color.white));
-
-        txt_tgl_lahir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.lightGray, java.awt.Color.cyan, java.awt.Color.white));
 
         txt_alamat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.lightGray, java.awt.Color.cyan, java.awt.Color.white));
 
@@ -379,6 +386,8 @@ public class frm_mhs extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabel_mahasiswa);
 
+        txt_tgl_lahir.setDateFormatString("YYYY-MM-dd");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -425,9 +434,9 @@ public class frm_mhs extends javax.swing.JFrame {
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel8))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_tgl_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txt_alamat, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                            .addComponent(txt_tgl_lahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -453,11 +462,12 @@ public class frm_mhs extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(txt_nim, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tgl_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel7)
+                        .addComponent(txt_nim, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_tgl_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -529,10 +539,12 @@ public class frm_mhs extends javax.swing.JFrame {
 
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
-         String nim          = txt_nim.getText();
+        String tampilan = "YYYY-MM-dd";
+        SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+        String tanggal=String.valueOf(fm.format(txt_tgl_lahir.getDate()));
+        String nim          = txt_nim.getText();
         String nama         = txt_nama.getText();
         String tempat_lahir = txt_tempat_lahir.getText();
-        String tgl_lahir    = txt_tgl_lahir.getText();
         String alamat       = txt_alamat.getText();
 
         if((nim.isEmpty()) | (alamat.isEmpty())){
@@ -550,7 +562,7 @@ public class frm_mhs extends javax.swing.JFrame {
                                   + "`nim`='" + nim + "',"
                                   + "`nama`='" + nama + "',"
                                   + "`ttl`='" + tempat_lahir + "',"
-                                  + "`tgl_lahir`='" + tgl_lahir + "',"
+                                  + "`tgl_lahir`='" + tanggal + "',"
                                   + "`alamat`='" + alamat + "'"
                                   + "WHERE"
                                   + "`nim`='"+tableModel.getValueAt(row, 0).toString()+"';";
@@ -559,7 +571,7 @@ public class frm_mhs extends javax.swing.JFrame {
                 data[0] = nim;
                 data[1] = nama;
                 data[2] = tempat_lahir;
-                data[3] = tgl_lahir;
+                data[3] = txt_tgl_lahir.getDateFormatString();
                 data[4] = alamat;
                 tableModel.removeRow(row);
                 tableModel.insertRow(0, data);
@@ -603,7 +615,10 @@ public class frm_mhs extends javax.swing.JFrame {
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
          // TODO add your handling code here:
             String data[]=new String[5];
-        if(txt_nim.getText().isEmpty() || (txt_tgl_lahir.getText().isEmpty()))
+            String tampilan = "YYYY-MM-dd";
+            SimpleDateFormat fm = new SimpleDateFormat(tampilan);
+            String tanggal=String.valueOf(fm.format(txt_tgl_lahir.getDate()));
+        if(txt_nim.getText().isEmpty() || (txt_tgl_lahir.getDateFormatString().isEmpty()))
         {
             JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
             txt_nim.requestFocus();
@@ -615,13 +630,13 @@ public class frm_mhs extends javax.swing.JFrame {
                Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "INSERT INTO t_mahasiswa(nim, nama, ttl, tgl_lahir, alamat) VALUES('"+txt_nim.getText()+"', '"+txt_nama.getText()+"', '"+txt_tempat_lahir.getText()+"', '"+txt_tgl_lahir.getText()+"', '"+txt_alamat.getText()+"')";
+                String SQL = "INSERT INTO t_mahasiswa(nim, nama, ttl, tgl_lahir, alamat) VALUES('"+txt_nim.getText()+"', '"+txt_nama.getText()+"', '"+txt_tempat_lahir.getText()+"', '"+tanggal+"', '"+txt_alamat.getText()+"')";
             
             stt.executeUpdate(SQL);
             data[0] = txt_nim.getText();
             data[1] = txt_nama.getText();
             data[2] = txt_tempat_lahir.getText();
-            data[3] = txt_tgl_lahir.getText();
+            data[3] = txt_tgl_lahir.getDateFormatString();
             data[4] = txt_alamat.getText();
             tableModel.insertRow(0, data);
             stt.close();
@@ -749,6 +764,6 @@ public class frm_mhs extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nama;
     private javax.swing.JTextField txt_nim;
     private javax.swing.JTextField txt_tempat_lahir;
-    private javax.swing.JTextField txt_tgl_lahir;
+    private com.toedter.calendar.JDateChooser txt_tgl_lahir;
     // End of variables declaration//GEN-END:variables
 }
