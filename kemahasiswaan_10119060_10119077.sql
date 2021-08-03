@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Agu 2021 pada 18.25
--- Versi server: 10.4.20-MariaDB
--- Versi PHP: 7.4.21
+-- Generation Time: Aug 03, 2021 at 08:47 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
@@ -34,7 +34,7 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `harga`) VALUES
@@ -45,28 +45,7 @@ INSERT INTO `barang` (`idbarang`, `namabarang`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `faktur`
---
-
-CREATE TABLE `faktur` (
-  `nofaktur` int(10) NOT NULL,
-  `idpegawai` varchar(10) NOT NULL,
-  `pembayaran` varchar(50) NOT NULL,
-  `tanggal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `faktur`
---
-
-INSERT INTO `faktur` (`nofaktur`, `idpegawai`, `pembayaran`, `tanggal`) VALUES
-(1, '10119060', 'cash', '2021-08-03'),
-(2, '10119077', 'transfer', '2021-08-02');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `pegawai`
+-- Table structure for table `pegawai`
 --
 
 CREATE TABLE `pegawai` (
@@ -76,7 +55,7 @@ CREATE TABLE `pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pegawai`
+-- Dumping data for table `pegawai`
 --
 
 INSERT INTO `pegawai` (`idpegawai`, `namapegawai`, `kotasal`) VALUES
@@ -86,50 +65,30 @@ INSERT INTO `pegawai` (`idpegawai`, `namapegawai`, `kotasal`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelanggan`
---
-
-CREATE TABLE `pelanggan` (
-  `idpelanggan` varchar(10) NOT NULL,
-  `namapelanggan` varchar(50) NOT NULL,
-  `kota` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `pelanggan`
---
-
-INSERT INTO `pelanggan` (`idpelanggan`, `namapelanggan`, `kota`) VALUES
-('P01', 'Ujang', 'Bandung'),
-('P02', 'Marni', 'Bandung');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `pesanan`
+-- Table structure for table `pesanan`
 --
 
 CREATE TABLE `pesanan` (
   `nopesanan` int(11) NOT NULL,
-  `nofaktur` int(11) NOT NULL,
   `idbarang` varchar(10) NOT NULL,
-  `idpelanggan` varchar(10) NOT NULL,
+  `namapelanggan` varchar(50) NOT NULL,
   `idpegawai` varchar(10) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `totalharga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pesanan`
+-- Dumping data for table `pesanan`
 --
 
-INSERT INTO `pesanan` (`nopesanan`, `nofaktur`, `idbarang`, `idpelanggan`, `idpegawai`, `jumlah`, `totalharga`) VALUES
-(1, 1, '10111', 'P01', '10119060', 2, 240000);
+INSERT INTO `pesanan` (`nopesanan`, `idbarang`, `namapelanggan`, `idpegawai`, `jumlah`, `totalharga`) VALUES
+(5, '10113', 'uus', '10119060', 1, 140000),
+(9, '10112', 'Kiki', '10119077', 4, 600000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_mahasiswa`
+-- Table structure for table `t_mahasiswa`
 --
 
 CREATE TABLE `t_mahasiswa` (
@@ -141,7 +100,7 @@ CREATE TABLE `t_mahasiswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `t_mahasiswa`
+-- Dumping data for table `t_mahasiswa`
 --
 
 INSERT INTO `t_mahasiswa` (`nim`, `nama`, `ttl`, `tgl_lahir`, `alamat`) VALUES
@@ -156,7 +115,7 @@ INSERT INTO `t_mahasiswa` (`nim`, `nama`, `ttl`, `tgl_lahir`, `alamat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_mata_kuliah`
+-- Table structure for table `t_mata_kuliah`
 --
 
 CREATE TABLE `t_mata_kuliah` (
@@ -165,7 +124,7 @@ CREATE TABLE `t_mata_kuliah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `t_mata_kuliah`
+-- Dumping data for table `t_mata_kuliah`
 --
 
 INSERT INTO `t_mata_kuliah` (`kd_mk`, `nama_mk`) VALUES
@@ -181,7 +140,7 @@ INSERT INTO `t_mata_kuliah` (`kd_mk`, `nama_mk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_nilai`
+-- Table structure for table `t_nilai`
 --
 
 CREATE TABLE `t_nilai` (
@@ -205,7 +164,7 @@ CREATE TABLE `t_nilai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `t_nilai`
+-- Dumping data for table `t_nilai`
 --
 
 INSERT INTO `t_nilai` (`kd_nilai`, `nim`, `kd_mk`, `absensi`, `tugas1`, `tugas2`, `tugas3`, `uts`, `uas`, `nilai_absen`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `nilai_akhir`, `indeks`, `ket`, `angkatan`) VALUES
@@ -216,7 +175,7 @@ INSERT INTO `t_nilai` (`kd_nilai`, `nim`, `kd_mk`, `absensi`, `tugas1`, `tugas2`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `t_simulasi`
+-- Table structure for table `t_simulasi`
 --
 
 CREATE TABLE `t_simulasi` (
@@ -242,67 +201,52 @@ CREATE TABLE `t_simulasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `t_simulasi`
+-- Dumping data for table `t_simulasi`
 --
 
 INSERT INTO `t_simulasi` (`kd_nilai`, `kd_mk`, `pabsen`, `ptugas`, `puts`, `puas`, `absensi`, `tugas1`, `tugas2`, `tugas3`, `uts`, `uas`, `nilai_absen`, `nilai_tugas`, `nilai_uts`, `nilai_uas`, `nilai_akhir`, `indeks`, `ket`) VALUES
 (44, 'IF256544', 20, 30, 40, 19, 11, 100, 100, 100, 100, 100, 15.714285714285714, 30, 40, 19, 105, 'E', 'Tidak Lulus'),
 (45, 'IF37325P', 10, 50, 20, 20, 14, 100, 100, 100, 100, 100, 10, 50, 20, 20, 100, 'A', 'Lulus'),
-(46, 'IF235359', 20, 20, 40, 20, 13, 80, 85, 60, 60, 60, 18.571428571428573, 15, 24, 12, 70, 'B', 'Lulus');
+(46, 'IF235359', 20, 20, 30, 30, 13, 80, 85, 60, 60, 60, 18.571428571428573, 15, 18, 18, 70, 'B', 'Lulus');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `barang`
+-- Indexes for table `barang`
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`idbarang`);
 
 --
--- Indeks untuk tabel `faktur`
---
-ALTER TABLE `faktur`
-  ADD PRIMARY KEY (`nofaktur`),
-  ADD KEY `idpegawai` (`idpegawai`);
-
---
--- Indeks untuk tabel `pegawai`
+-- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`idpegawai`);
 
 --
--- Indeks untuk tabel `pelanggan`
---
-ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`idpelanggan`);
-
---
--- Indeks untuk tabel `pesanan`
+-- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`nopesanan`),
   ADD KEY `idbarang` (`idbarang`),
-  ADD KEY `idpegawai` (`idpegawai`),
-  ADD KEY `idpelanggan` (`idpelanggan`),
-  ADD KEY `nofaktur` (`nofaktur`);
+  ADD KEY `idpegawai` (`idpegawai`);
 
 --
--- Indeks untuk tabel `t_mahasiswa`
+-- Indexes for table `t_mahasiswa`
 --
 ALTER TABLE `t_mahasiswa`
   ADD PRIMARY KEY (`nim`);
 
 --
--- Indeks untuk tabel `t_mata_kuliah`
+-- Indexes for table `t_mata_kuliah`
 --
 ALTER TABLE `t_mata_kuliah`
   ADD PRIMARY KEY (`kd_mk`);
 
 --
--- Indeks untuk tabel `t_nilai`
+-- Indexes for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   ADD PRIMARY KEY (`kd_nilai`),
@@ -310,68 +254,54 @@ ALTER TABLE `t_nilai`
   ADD KEY `kd_mk` (`kd_mk`);
 
 --
--- Indeks untuk tabel `t_simulasi`
+-- Indexes for table `t_simulasi`
 --
 ALTER TABLE `t_simulasi`
   ADD PRIMARY KEY (`kd_nilai`),
   ADD KEY `kd_mk` (`kd_mk`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `faktur`
---
-ALTER TABLE `faktur`
-  MODIFY `nofaktur` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `pesanan`
+-- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `nopesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `nopesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2043;
 
 --
--- AUTO_INCREMENT untuk tabel `t_nilai`
+-- AUTO_INCREMENT for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   MODIFY `kd_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT untuk tabel `t_simulasi`
+-- AUTO_INCREMENT for table `t_simulasi`
 --
 ALTER TABLE `t_simulasi`
   MODIFY `kd_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `faktur`
---
-ALTER TABLE `faktur`
-  ADD CONSTRAINT `faktur_ibfk_1` FOREIGN KEY (`idpegawai`) REFERENCES `pegawai` (`idpegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `pesanan`
+-- Constraints for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD CONSTRAINT `pesanan_ibfk_1` FOREIGN KEY (`idbarang`) REFERENCES `barang` (`idbarang`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pesanan_ibfk_2` FOREIGN KEY (`idpegawai`) REFERENCES `pegawai` (`idpegawai`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pesanan_ibfk_3` FOREIGN KEY (`idpelanggan`) REFERENCES `pelanggan` (`idpelanggan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pesanan_ibfk_4` FOREIGN KEY (`nofaktur`) REFERENCES `faktur` (`nofaktur`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pesanan_ibfk_2` FOREIGN KEY (`idpegawai`) REFERENCES `pegawai` (`idpegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `t_nilai`
+-- Constraints for table `t_nilai`
 --
 ALTER TABLE `t_nilai`
   ADD CONSTRAINT `t_nilai_ibfk_1` FOREIGN KEY (`nim`) REFERENCES `t_mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `t_nilai_ibfk_2` FOREIGN KEY (`kd_mk`) REFERENCES `t_mata_kuliah` (`kd_mk`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `t_simulasi`
+-- Constraints for table `t_simulasi`
 --
 ALTER TABLE `t_simulasi`
   ADD CONSTRAINT `t_simulasi_ibfk_2` FOREIGN KEY (`kd_mk`) REFERENCES `t_mata_kuliah` (`kd_mk`) ON DELETE CASCADE ON UPDATE CASCADE;

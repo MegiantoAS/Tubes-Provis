@@ -892,7 +892,7 @@ public class frm_simulasi_na extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
          // TODO add your handling code here:
-           try
+        try
         {
              Class.forName(driver);
                 Connection kon  = DriverManager.getConnection(database, user, pass);
