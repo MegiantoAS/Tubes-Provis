@@ -109,6 +109,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="370" max="-2" attributes="0"/>
@@ -124,17 +126,13 @@
                                                   <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
                                               </Group>
-                                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txt_uas" min="-2" pref="70" max="-2" attributes="0"/>
                                                   <Component id="txt_uts" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <Component id="txt_kode_mk" pref="200" max="32767" attributes="0"/>
-                                                  <Component id="txt_angkatan" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txt_kode_mk" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <Component id="txt_angkatan" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -214,10 +212,10 @@
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt_uas" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="txt_angkatan" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt_angkatan" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

@@ -16,14 +16,196 @@ import java.util.Date;
  * @author RAF
  */
 public class frm_simulasi_na extends javax.swing.JFrame {
-
+    koneksi dbsetting;
+    String driver,database,user,pass;
+    Object tabel;
     /**
      * Creates new form frm_simulasi_na
      */
     public frm_simulasi_na() {
+         initComponents();
+        dbsetting = new koneksi();
+        driver = dbsetting.SettingPanel("DBDriver"); 
+        database = dbsetting.SettingPanel("DBDatabase");
+        user = dbsetting.SettingPanel("DBUsername");
+        pass = dbsetting.SettingPanel("DBPassword ");
+        table_simulasi_na.setModel(tableModel);
+        settableload();
+        tampil_combo_kdmk();
+    }
+    
+    
+    
+     private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
+     private javax.swing.table.DefaultTableModel getDefaultTabelModel()
+            {
+//        judul header
+        return new javax.swing.table.DefaultTableModel
+        (
+                new Object[][]{},
+                new String [] {"Nama MK", "Persentase Absen", "Persentase Tugas", "Persentase UTS", "Persentase UAS", "Absensi", "Tugas 1", "Tugas 2", "Tugas3", "UTS", "UAS", "Nilai Absen", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Indeks", "Keterangan"}
+        )
+        {
+            boolean[] canEdit = new boolean[]
+            {
+                false, false, false, false, false
+            };
+            
+            public boolean isCellEdittable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+            };
+        }
      
+      String data[]=new String[18];
+      private void settableload()
+    {
+        String stat = "";
+        try
+        {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select t_mata_kuliah.nama_mk,t_simulasi.pabsen, t_simulasi.ptugas, t_simulasi.puts, t_simulasi.puas, t_simulasi.absensi, t_simulasi.tugas1, t_simulasi.tugas2, t_simulasi.tugas3, t_simulasi.uts, t_simulasi.uas, t_simulasi.nilai_absen, t_simulasi.nilai_tugas, t_simulasi.nilai_uts, t_simulasi.nilai_uas, t_simulasi.nilai_akhir, t_simulasi.indeks, t_simulasi.ket FROM t_simulasi JOIN t_mata_kuliah ON t_simulasi.kd_mk = t_mata_kuliah.kd_mk";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next())
+            {
+                data[0] = res.getString(1);
+                data[1] = res.getString(2);
+                data[2] = res.getString(3);
+                data[3] = res.getString(4);
+                data[4] = res.getString(5);
+                data[5] = res.getString(6);
+                data[6] = res.getString(7);
+                data[7] = res.getString(8);
+                data[8] = res.getString(9);
+                data[9] = res.getString(10);
+                data[10] = res.getString(11);
+                data[11] = res.getString(12);
+                data[12] = res.getString(13);
+                data[13] = res.getString(14);
+                data[14] = res.getString(15);
+                data[15] = res.getString(16);
+                data[16] = res.getString(17);
+                data[17] = res.getString(18);
+                tableModel.addRow(data);
+            }
+               res.close();
+               stt.close();
+               kon.close();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 
+       public void tampil_combo_kdmk(){
+        try{
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt=kon.createStatement();
+            String SQL = "select nama_mk from t_mata_kuliah order by nama_mk";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next()){
+                Object[] ob1 = new Object[3];
+                ob1[0] = res.getString(1);
+                
+                cb_mk.addItem((String) ob1[0]);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch(Exception ex){
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error", JOptionPane.INFORMATION_MESSAGE);
+            
+            System.exit(0);
+        }
+    }
+       
+        int row = 0;
+        public void tampil_field()
+        {
+            row=table_simulasi_na.getSelectedRow();
+            
+            cb_mk.setSelectedItem(tableModel.getValueAt(row, 0).toString());
+            txt_persentase_absen.setText(tableModel.getValueAt(row, 1).toString());
+            txt_persentase_tugas.setText(tableModel.getValueAt(row, 2).toString());
+            txt_persentase_uts.setText(tableModel.getValueAt(row, 3).toString());
+            txt_persentase_uas.setText(tableModel.getValueAt(row, 4).toString());
+            txt_kehadiran.setText(tableModel.getValueAt(row, 5).toString());
+            txt_tugas1.setText(tableModel.getValueAt(row, 6).toString());
+            txt_tugas2.setText(tableModel.getValueAt(row, 7).toString());
+            txt_tugas3.setText(tableModel.getValueAt(row, 8).toString());
+            txt_uts.setText(tableModel.getValueAt(row, 9).toString());
+            txt_uas.setText(tableModel.getValueAt(row, 10).toString());
+            
+            
+            btn_simpan.setEnabled(false);
+            btn_ubah.setEnabled(true);
+            btn_hapus.setEnabled(true);
+            btn_batal.setEnabled(false);
+            aktif_teks();
+
+        }
+        
+        public void aktif_teks()
+        {
+            txt_kehadiran.setEnabled(true);
+            txt_persentase_tugas.setEnabled(true);
+            txt_persentase_absen.setEnabled(true);
+            txt_persentase_uas.setEnabled(true);
+            txt_persentase_uts.setEnabled(true);
+            txt_tugas1.setEnabled(true);
+            txt_tugas2.setEnabled(true);
+            txt_tugas3.setEnabled(true);
+            txt_kode_mk.setEnabled(true);
+            txt_uts.setEnabled(true);
+            txt_uas.setEnabled(true);
+            cb_mk.setEnabled(true);
+        }
+        
+         public void nonaktif_teks()
+        {
+            cb_mk.setEnabled(false);
+            txt_kehadiran.setEnabled(false);
+            txt_persentase_tugas.setEnabled(false);
+            txt_persentase_absen.setEnabled(false);
+            txt_persentase_uas.setEnabled(false);
+            txt_persentase_uts.setEnabled(false);
+            txt_tugas1.setEnabled(false);
+            txt_tugas2.setEnabled(false);
+            txt_tugas3.setEnabled(false);
+            txt_kode_mk.setEnabled(false);
+            txt_uts.setEnabled(false);
+            txt_uas.setEnabled(false);
+        }
+        
+          public void membersihkan_teks()
+        {
+            cb_mk.setSelectedIndex(0);
+            txt_kehadiran.setText("");
+            txt_persentase_tugas.setText("");
+            txt_persentase_absen.setText("");
+            txt_persentase_uas.setText("");
+            txt_persentase_uts.setText("");
+            txt_tugas1.setText("");
+            txt_tugas2.setText("");
+            txt_tugas3.setText("");
+            txt_kode_mk.setText("");
+            txt_uts.setText("");
+            txt_uas.setText("");
+        }
+          
+          
+        
+       
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,16 +249,17 @@ public class frm_simulasi_na extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table_simulasi_na = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        btn_tambah = new javax.swing.JButton();
+        btn_ubah = new javax.swing.JButton();
+        btn_batal = new javax.swing.JButton();
+        btn_hapus = new javax.swing.JButton();
+        btn_simpan = new javax.swing.JButton();
+        btn_keluar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Form Simulasi NIlai");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -161,46 +344,81 @@ public class frm_simulasi_na extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_simulasi_na.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_simulasi_naMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_simulasi_na);
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 255, 255), new java.awt.Color(102, 255, 255), null, null));
 
-        jButton7.setBackground(new java.awt.Color(153, 255, 0));
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton7.setText("Tambah");
-        jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_tambah.setBackground(new java.awt.Color(153, 255, 0));
+        btn_tambah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_tambah.setText("Tambah");
+        btn_tambah.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 51));
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton8.setText("Ubah");
-        jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_ubah.setBackground(new java.awt.Color(255, 255, 51));
+        btn_ubah.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_ubah.setText("Ubah");
+        btn_ubah.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_ubah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_ubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ubahActionPerformed(evt);
+            }
+        });
 
-        jButton9.setBackground(new java.awt.Color(255, 0, 51));
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton9.setText("Batal");
-        jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_batal.setBackground(new java.awt.Color(255, 0, 51));
+        btn_batal.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_batal.setText("Batal");
+        btn_batal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_batal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_batalActionPerformed(evt);
+            }
+        });
 
-        jButton10.setBackground(new java.awt.Color(255, 51, 51));
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton10.setText("Hapus");
-        jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_hapus.setBackground(new java.awt.Color(255, 51, 51));
+        btn_hapus.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_hapus.setText("Hapus");
+        btn_hapus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_hapus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusActionPerformed(evt);
+            }
+        });
 
-        jButton11.setBackground(new java.awt.Color(255, 204, 0));
-        jButton11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton11.setText("Simpan");
-        jButton11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_simpan.setBackground(new java.awt.Color(255, 204, 0));
+        btn_simpan.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_simpan.setText("Simpan");
+        btn_simpan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_simpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_simpanActionPerformed(evt);
+            }
+        });
 
-        jButton12.setBackground(new java.awt.Color(255, 0, 0));
-        jButton12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton12.setText("Keluar");
-        jButton12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
-        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_keluar.setBackground(new java.awt.Color(255, 0, 0));
+        btn_keluar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_keluar.setText("Keluar");
+        btn_keluar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 255, 255), new java.awt.Color(153, 255, 255), null, null));
+        btn_keluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_keluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -208,17 +426,17 @@ public class frm_simulasi_na extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76))
         );
         jPanel3Layout.setVerticalGroup(
@@ -226,12 +444,12 @@ public class frm_simulasi_na extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -245,29 +463,11 @@ public class frm_simulasi_na extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(txt_persentase_uas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_persentase_uts, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel18))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel19)))
-                        .addGap(203, 203, 203)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20))))
-                        .addGap(28, 28, 28)
+                        .addGap(448, 448, 448)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20))
+                        .addGap(55, 55, 55)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_tugas1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,56 +476,72 @@ public class frm_simulasi_na extends javax.swing.JFrame {
                             .addComponent(txt_tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(45, 45, 45)
+                                    .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addGap(51, 51, 51))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel11)
+                                                .addComponent(jLabel15))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(txt_persentase_absen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel17))
+                                        .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(txt_persentase_tugas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel18))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(txt_persentase_uts, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel16))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(txt_persentase_uas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel19)))))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(60, 60, 60)
-                                .addComponent(txt_kehadiran, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_kehadiran, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
                                 .addComponent(jLabel9))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txt_persentase_absen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel16))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txt_persentase_tugas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel17))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(45, 45, 45)
-                                .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,75 +550,73 @@ public class frm_simulasi_na extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txt_persentase_absen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel16))
-                                        .addGap(18, 18, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel13)
-                                            .addComponent(txt_persentase_tugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel17))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel14)
-                                            .addComponent(txt_persentase_uts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel18))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(cb_mk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(txt_persentase_absen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(txt_persentase_tugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel14)
+                                    .addComponent(txt_persentase_uts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txt_persentase_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel19)
-                                    .addComponent(jLabel15))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jLabel15)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
                                     .addComponent(txt_kehadiran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txt_tugas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(txt_tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txt_tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel20)
-                                    .addComponent(txt_uts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_tugas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel21)
-                                    .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)))
+                                    .addComponent(txt_tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_uts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel21))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -428,7 +642,275 @@ public class frm_simulasi_na extends javax.swing.JFrame {
 
     private void cb_mkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_mkActionPerformed
         // TODO add your handling code here
+        String datacb_mk = (String) cb_mk.getSelectedItem();
+        
+        try
+        {
+          Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL      = "SELECT kd_mk FROM `t_mata_kuliah` WHERE `nama_mk` LIKE'%"+datacb_mk+"%'";
+                ResultSet res=stt.executeQuery(SQL);
+                while(res.next()) 
+                {
+                data[0] = res.getString(1);
+                }
+                
+                txt_kode_mk.setText(data[0]);
+                
+                res.close();
+                stt.close();
+                kon.close();
+        }
+        catch(Exception ex)
+        {
+           System.err.println(ex.getMessage());  
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+              System.exit(0);
+        }    
+        
+        
+        
     }//GEN-LAST:event_cb_mkActionPerformed
+
+    private void table_simulasi_naMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_simulasi_naMouseClicked
+         // TODO add your handling code here:
+         
+           if(evt.getClickCount()==1)
+        {
+            tampil_field();
+            cb_mk.setEnabled(false);
+            txt_kode_mk.setEnabled(false);
+            btn_batal.setEnabled(true);
+        }
+    }//GEN-LAST:event_table_simulasi_naMouseClicked
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        // TODO add your handling code here:
+            txt_persentase_absen.requestFocus();
+            btn_simpan.setEnabled(true);
+            btn_ubah.setEnabled(false);
+            btn_hapus.setEnabled(false);
+            btn_keluar.setEnabled(true);
+            btn_batal.setEnabled(true);
+            aktif_teks();  
+            membersihkan_teks();
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
+         // TODO add your handling code here:
+            btn_simpan.setEnabled(true);
+            btn_ubah.setEnabled(true);
+            btn_hapus.setEnabled(true);
+            btn_keluar.setEnabled(true);
+            btn_batal.setEnabled(true);
+            aktif_teks();     
+            membersihkan_teks();
+    }//GEN-LAST:event_btn_batalActionPerformed
+
+    private void btn_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_keluarActionPerformed
+         // TODO add your handling code here:
+         dispose();
+    }//GEN-LAST:event_btn_keluarActionPerformed
+
+    private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
+        // TODO add your handling code here:
+          if((cb_mk.getSelectedItem()==("==PILIH KODE MK==") || txt_persentase_absen.getText().isEmpty() ||  txt_persentase_tugas.getText().isEmpty() ||  txt_persentase_uts.getText().isEmpty() ||  txt_persentase_uas.getText().isEmpty() || txt_kode_mk.getText().isEmpty() || txt_kehadiran.getText().isEmpty() || txt_tugas1.getText().isEmpty() || txt_tugas2.getText().isEmpty() || txt_tugas3.getText().isEmpty() || txt_uts.getText().isEmpty() || txt_uas.getText().isEmpty()))
+        {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+            txt_persentase_absen.requestFocus();
+        }
+        else
+        {
+            if (Double.valueOf(txt_kehadiran.getText()) > 14) {
+                 JOptionPane.showMessageDialog(null,"Kehadiran tidak boleh lebih dari 14");
+                 txt_kehadiran.requestFocus();
+            }else{
+                
+         String data[]=new String[18];
+         String indeks;
+         String keterangan;
+         double nilaiabsen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*Double.valueOf(txt_persentase_absen.getText()))/100);
+         double nilaitugas = (((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText()))/3)*Double.valueOf(txt_persentase_tugas.getText())/100);
+         double nilaiuts   = (Double.valueOf(txt_uts.getText())*Double.valueOf(txt_persentase_uts.getText())/100);
+         double nilaiuas   = (Double.valueOf(txt_uas.getText())*Double.valueOf(txt_persentase_uas.getText())/100);
+         double nilaiakhir = nilaiabsen+nilaitugas+nilaiuts+nilaiuas;
+         
+          if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
+            indeks="A"; //indeks yang didapatkan
+            keterangan="Lulus";
+            }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
+                indeks="B";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
+                indeks="C";//indeks yang didapatkan
+                keterangan="Lulus";
+             }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
+                indeks="D";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else{ //jika tidak semuanya
+                indeks="E";//indeks yang didapatkan
+                keterangan = "Tidak Lulus";
+
+            }
+            try
+            { 
+               Class.forName(driver);
+               Connection kon = DriverManager.getConnection(database, user, pass);
+               Statement stt = kon.createStatement();
+               String SQL = "INSERT INTO t_simulasi (kd_mk,pabsen,ptugas,puts,puas, absensi, tugas1, tugas2, tugas3, uts, uas, nilai_absen, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, indeks, ket) VALUES('"+txt_kode_mk.getText()+"',"+Double.valueOf(txt_persentase_absen.getText())+","+Double.valueOf(txt_persentase_tugas.getText())+","+Double.valueOf(txt_persentase_uts.getText())+","+Double.valueOf(txt_persentase_uas.getText())+","+Double.valueOf(txt_kehadiran.getText())+","+Double.valueOf(txt_tugas1.getText())+","+Double.valueOf(txt_tugas2.getText())+","+Double.valueOf(txt_tugas3.getText())+","+Double.valueOf(txt_uts.getText())+", "+Double.valueOf(txt_uas.getText())+","+nilaiabsen+", "+nilaitugas+", "+nilaiuts+", "+nilaiuas+", "+nilaiakhir+", '"+indeks+"', '"+keterangan+"')";
+          
+                stt.executeUpdate(SQL);
+                data[0] = txt_kode_mk.getText();
+                data[1] = txt_persentase_absen.getText();
+                data[2] = txt_persentase_tugas.getText();
+                data[3] = txt_persentase_uts.getText();
+                data[4] = txt_persentase_uas.getText();
+                data[5] = txt_kehadiran.getText();
+                data[6] = txt_tugas1.getText();
+                data[7] = txt_tugas2.getText();
+                data[8] = txt_tugas3.getText();
+                data[9] = txt_uts.getText();
+                data[10] = txt_uas.getText();
+                data[11] = String.valueOf(nilaiabsen);
+                data[12] = String.valueOf(nilaitugas);
+                data[13] = String.valueOf(nilaiuts);
+                data[14] = String.valueOf(nilaiuas);
+                data[15] = String.valueOf(nilaiakhir);
+                data[16] = indeks;
+                data[17] = keterangan;
+   
+                tableModel.insertRow(0, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                btn_simpan.setEnabled(false);
+                nonaktif_teks();
+                
+            }
+            catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+                    }
+             
+        }
+        }
+    }//GEN-LAST:event_btn_simpanActionPerformed
+
+    private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
+        // TODO add your handling code here:
+        
+        if((cb_mk.getSelectedItem()==("==PILIH KODE MK==") || txt_persentase_absen.getText().isEmpty() ||  txt_persentase_tugas.getText().isEmpty() ||  txt_persentase_uts.getText().isEmpty() ||  txt_persentase_uas.getText().isEmpty() || txt_kode_mk.getText().isEmpty() || txt_kehadiran.getText().isEmpty() || txt_tugas1.getText().isEmpty() || txt_tugas2.getText().isEmpty() || txt_tugas3.getText().isEmpty() || txt_uts.getText().isEmpty() || txt_uas.getText().isEmpty()))
+        {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+            txt_persentase_absen.requestFocus();
+        }
+        else
+        {
+            if (Double.valueOf(txt_kehadiran.getText()) > 14) {
+                 JOptionPane.showMessageDialog(null,"Kehadiran tidak boleh lebih dari 14");
+                 txt_kehadiran.requestFocus();
+            }else{
+                
+         String data[]=new String[18];
+         String indeks;
+         String keterangan;
+         double nilaiabsen = (((Double.valueOf(txt_kehadiran.getText())/14)*100*Double.valueOf(txt_persentase_absen.getText()))/100);
+         double nilaitugas = (((Double.valueOf(txt_tugas1.getText())+Double.valueOf(txt_tugas2.getText())+Double.valueOf(txt_tugas3.getText()))/3)*Double.valueOf(txt_persentase_tugas.getText())/100);
+         double nilaiuts   = (Double.valueOf(txt_uts.getText())*Double.valueOf(txt_persentase_uts.getText())/100);
+         double nilaiuas   = (Double.valueOf(txt_uas.getText())*Double.valueOf(txt_persentase_uas.getText())/100);
+         double nilaiakhir = nilaiabsen+nilaitugas+nilaiuts+nilaiuas;
+         
+          if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
+            indeks="A"; //indeks yang didapatkan
+            keterangan="Lulus";
+            }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
+                indeks="B";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
+                indeks="C";//indeks yang didapatkan
+                keterangan="Lulus";
+             }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
+                indeks="D";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else{ //jika tidak semuanya
+                indeks="E";//indeks yang didapatkan
+                keterangan = "Tidak Lulus";
+
+            }
+            try
+            { 
+               Class.forName(driver);
+               Connection kon = DriverManager.getConnection(database, user, pass);
+               Statement stt = kon.createStatement();
+               String SQL =  "UPDATE t_simulasi SET kd_mk = '"+txt_kode_mk.getText()+"', "
+                        + "pabsen = "+Double.valueOf(txt_persentase_absen.getText())+",ptugas = "+Double.valueOf(txt_persentase_tugas.getText())+","
+                       + "puts = "+Double.valueOf(txt_persentase_uts.getText())+",puas = "+Double.valueOf(txt_persentase_uas.getText())+", "
+                       + "absensi="+Double.valueOf(txt_kehadiran.getText())+", tugas1 = "+Double.valueOf(txt_tugas1.getText())+","
+                        + "tugas2 = "+Double.valueOf(txt_tugas2.getText())+",tugas3 = "+Double.valueOf(txt_tugas3.getText())+","
+                        + "uts = "+Double.valueOf(txt_uts.getText())+",uas = "+Double.valueOf(txt_uas.getText())+", nilai_absen = "+nilaiabsen+","
+                        + "nilai_tugas="+nilaitugas+",nilai_uts= "+nilaiuts+",nilai_uas="+nilaiuas+",nilai_akhir = "+nilaiakhir+",indeks='"+indeks+"',ket='"+keterangan+"'"
+                        + " WHERE kd_mk='"+txt_kode_mk.getText()+"'";
+          
+                stt.executeUpdate(SQL);
+                data[0] = txt_kode_mk.getText();
+                data[1] = txt_persentase_absen.getText();
+                data[2] = txt_persentase_tugas.getText();
+                data[3] = txt_persentase_uts.getText();
+                data[4] = txt_persentase_uas.getText();
+                data[5] = txt_kehadiran.getText();
+                data[6] = txt_tugas1.getText();
+                data[7] = txt_tugas2.getText();
+                data[8] = txt_tugas3.getText();
+                data[9] = txt_uts.getText();
+                data[10] = txt_uas.getText();
+                data[11] = String.valueOf(nilaiabsen);
+                data[12] = String.valueOf(nilaitugas);
+                data[13] = String.valueOf(nilaiuts);
+                data[14] = String.valueOf(nilaiuas);
+                data[15] = String.valueOf(nilaiakhir);
+                data[16] = indeks;
+                data[17] = keterangan;
+   
+                tableModel.removeRow(row);
+                tableModel.insertRow(0, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                btn_simpan.setEnabled(false);
+                nonaktif_teks();
+                
+            }
+            catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+                    }
+             
+        }
+        }
+    }//GEN-LAST:event_btn_ubahActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+         // TODO add your handling code here:
+           try
+        {
+             Class.forName(driver);
+                Connection kon  = DriverManager.getConnection(database, user, pass);
+                Statement stt   = kon.createStatement();
+                String SQL      = "DELETE From t_simulasi "
+                                    +"where "
+                                    +"kd_mk = '"+txt_kode_mk.getText()+"'";
+                stt.executeUpdate(SQL);
+                tableModel.removeRow(row);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btn_hapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,13 +948,13 @@ public class frm_simulasi_na extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_batal;
+    private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_keluar;
+    private javax.swing.JButton btn_simpan;
+    private javax.swing.JButton btn_tambah;
+    private javax.swing.JButton btn_ubah;
     private javax.swing.JComboBox<String> cb_mk;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

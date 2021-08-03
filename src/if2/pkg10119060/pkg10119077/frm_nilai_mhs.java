@@ -562,7 +562,9 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                                             .addGap(18, 18, 18)
                                             .addComponent(jLabel9))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(370, 370, 370)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -575,16 +577,13 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel11)
                                                 .addComponent(jLabel13)
-                                                .addComponent(jLabel12)
-                                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                                    .addGap(7, 7, 7)
-                                                    .addComponent(jLabel14)))
-                                            .addGap(65, 65, 65)
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel12))
+                                            .addGap(76, 76, 76)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(txt_uts, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txt_kode_mk, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                                .addComponent(txt_angkatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addComponent(txt_kode_mk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addGap(218, 218, 218)))))
@@ -643,10 +642,10 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel12)
                                     .addComponent(txt_uas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14))))
+                                    .addComponent(jLabel14)
+                                    .addComponent(txt_angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -816,20 +815,20 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
           if(nilaiakhir >= 80 && nilaiakhir <=100){//kondisi saat nilai lebih dari 80
             indeks="A"; //indeks yang didapatkan
             keterangan="Lulus";
-        }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
-            indeks="B";//indeks yang didapatkan
-            keterangan="Lulus";
-        }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
-            indeks="C";//indeks yang didapatkan
-            keterangan="Lulus";
-         }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
-            indeks="D";//indeks yang didapatkan
-            keterangan="Lulus";
-        }else{ //jika tidak semuanya
-            indeks="E";//indeks yang didapatkan
-            keterangan = "Tidak Lulus";
- 
-        }
+            }else if (nilaiakhir >=68 && nilaiakhir <= 79){//kondisi saat nilai 68 sampai 80
+                indeks="B";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else if (nilaiakhir >=55 && nilaiakhir <= 67){//kondisi saat nilai 56 sampai 68
+                indeks="C";//indeks yang didapatkan
+                keterangan="Lulus";
+             }else if (nilaiakhir >=45 && nilaiakhir <= 54){//kondisi saat nilai 45 sampai 56
+                indeks="D";//indeks yang didapatkan
+                keterangan="Lulus";
+            }else{ //jika tidak semuanya
+                indeks="E";//indeks yang didapatkan
+                keterangan = "Tidak Lulus";
+
+            }
             try
             { 
                String tampilan = "YYYY-MM-dd";
@@ -869,6 +868,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
                     {
                         JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
                     }
+             
         }
         }
     }//GEN-LAST:event_btn_simpanActionPerformed
