@@ -4,18 +4,44 @@
  * and open the template in the editor.
  */
 package if2.pkg10119060.pkg10119077;
-
+import java.awt.*;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author ASUS
  */
-public class frm_login extends javax.swing.JFrame {
 
+public class frm_login extends javax.swing.JFrame {
+        koneksi dbsetting;
+        String driver,database,user,pass;
+        Object tabel;
     /**
      * Creates new form frm_login
      */
     public frm_login() {
         initComponents();
+        dbsetting = new koneksi();
+        driver = dbsetting.SettingPanel("DBDriver"); 
+        database = dbsetting.SettingPanel("DBDatabase");
+        user = dbsetting.SettingPanel("DBUsername");
+        pass = dbsetting.SettingPanel("DBPassword ");
+        
+        Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize=this.getSize();
+        if(frameSize.height > screenSize.height){
+        frameSize.height=screenSize.height;
+        }
+        if(frameSize.width > screenSize.width){
+        frameSize.width=screenSize.width;
+        }
+        this.setLocation((screenSize.width - frameSize.width) / 2,
+        (screenSize.height = screenSize.height) / 20);
+        
+        
+        //menampilkan session login Nama user
+        String nama=usersession.get_nama();
+        txt_username.setText(nama);
     }
 
     /**
@@ -34,11 +60,11 @@ public class frm_login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_username = new javax.swing.JTextField();
         btn_login = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         btn_register = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_pass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,6 +94,11 @@ public class frm_login extends javax.swing.JFrame {
         btn_login.setBackground(new java.awt.Color(0, 255, 51));
         btn_login.setText("Login");
         btn_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,6 +107,11 @@ public class frm_login extends javax.swing.JFrame {
         btn_register.setBackground(new java.awt.Color(0, 204, 204));
         btn_register.setText("Register");
         btn_register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,13 +135,13 @@ public class frm_login extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(221, 221, 221))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -119,11 +155,11 @@ public class frm_login extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_login)
                 .addGap(2, 2, 2)
@@ -183,6 +219,51 @@ public class frm_login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+         // TODO add your handling code here:
+         //ambil string dari jtextfield
+        String username=txt_username.getText();
+        String password=String.valueOf(txt_pass.getPassword());
+        
+        //kondisi jika username kosong
+        if (username.isEmpty() ) {
+            JOptionPane.showMessageDialog(null,"Username tidak boleh kosong");
+            txt_username.requestFocus();
+        }
+        //kondisi jika password kosong
+        else if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Password tidak boleh kosong");
+        }        
+        try{
+           
+            Connection kon = DriverManager.getConnection(database,user,pass);
+            Statement stt=kon.createStatement();
+            String SQL = "SELECT * FROM users WHERE username='"+username+"' AND password='"+password+"'";  
+            ResultSet res = stt.executeQuery(SQL);
+            
+            //kondisi jika data ada
+            if(res.next()){
+                usersession.set_nama(res.getString("nama_lengkap"));
+                //menampilkan gui dashboard
+                new frm_utama().setVisible(true);
+                //menutup gui login
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Username dan password yang anda masukkan salah!","Error",JOptionPane.ERROR_MESSAGE);
+            }        
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(this,"Login gagal\n"+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registerActionPerformed
+        // TODO add your handling code here:
+        frm_register register = new frm_register();
+        register.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_registerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,8 +310,8 @@ public class frm_login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txt_pass;
+    private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
