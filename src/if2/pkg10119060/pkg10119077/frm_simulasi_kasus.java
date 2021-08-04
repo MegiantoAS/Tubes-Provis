@@ -617,17 +617,18 @@ public class frm_simulasi_kasus extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
-        String data[]=new String[7];
-        int total_harga = Integer.valueOf(txt_harga.getText()) * Integer.valueOf(txt_jumlah.getText());
+        
 
         if(cb_barang.getSelectedItem()==("=Pilih Barang=") || (cb_pegawai.getSelectedItem()==("=Pilih ID=") || txt_idbarang.getText().isEmpty() || txt_harga.getText().isEmpty() || txt_jumlah.getText().isEmpty() || txt_pelanggan.getText().isEmpty()))
         {
             JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
         }
         else
-        {     
+        {   
             try
-            {          
+            {  
+                String data[]=new String[7];
+                int total_harga = Integer.valueOf(txt_harga.getText()) * Integer.valueOf(txt_jumlah.getText());
                Class.forName(driver);
                Connection kon = DriverManager.getConnection(database, user, pass);
                Statement stt = kon.createStatement();

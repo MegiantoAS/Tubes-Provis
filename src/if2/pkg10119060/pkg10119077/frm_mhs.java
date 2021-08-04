@@ -614,6 +614,12 @@ public class frm_mhs extends javax.swing.JFrame {
 
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
          // TODO add your handling code here:
+         if (txt_nama.getText().isEmpty() || txt_nim.getText().isEmpty() || txt_tempat_lahir.getText().isEmpty() || txt_alamat.getText().isEmpty())
+         {
+            JOptionPane.showMessageDialog(null,"Data Tidak Boleh kosong, silakan dilengkapi");
+        }
+        else
+        {  
             String data[]=new String[5];
             String tampilan = "YYYY-MM-dd";
             SimpleDateFormat fm = new SimpleDateFormat(tampilan);
@@ -650,6 +656,7 @@ public class frm_mhs extends javax.swing.JFrame {
                     {
                         JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
                     }
+        }
         }
     }//GEN-LAST:event_btn_simpanActionPerformed
 
