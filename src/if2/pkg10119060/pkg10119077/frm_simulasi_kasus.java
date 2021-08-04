@@ -631,7 +631,7 @@ public class frm_simulasi_kasus extends javax.swing.JFrame {
                Class.forName(driver);
                Connection kon = DriverManager.getConnection(database, user, pass);
                Statement stt = kon.createStatement();
-               String SQL = "INSERT INTO pesanan(nopesanan, idbarang, namapelanggan, idpegawai, jumlah, totalharga) VALUES('"+txt_idbarang.getText()+"','"
+               String SQL = "INSERT INTO pesanan(idbarang, namapelanggan, idpegawai, jumlah, totalharga) VALUES('"+txt_idbarang.getText()+"','"
                        + ""+txt_pelanggan.getText()+"','"+cb_pegawai.getSelectedItem()+"',"+txt_jumlah.getText()+","+total_harga+")";
           
                 stt.executeUpdate(SQL);
