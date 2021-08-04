@@ -88,6 +88,7 @@ public class frm_register extends javax.swing.JFrame {
 
         btn_register.setBackground(new java.awt.Color(0, 255, 51));
         btn_register.setText("Register");
+        btn_register.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registerActionPerformed(evt);
@@ -200,7 +201,7 @@ public class frm_register extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "INSERT INTO users(username, nama_lengkap, email, no_hp, password) VALUES('"+txt_user.getText()+"','"+txt_nama.getText()+"','"+txt_email.getText()+"','"+txt_nohp.getText()+"','"+txt_pass.getText()+"')";
+                String SQL = "INSERT INTO t_pengguna(username, nama_lengkap, email, no_hp, password) VALUES('"+txt_user.getText()+"','"+txt_nama.getText()+"','"+txt_email.getText()+"','"+txt_nohp.getText()+"','"+txt_pass.getText()+"')";
 
                 stt.executeUpdate(SQL);
                 data[1] = txt_user.getText();

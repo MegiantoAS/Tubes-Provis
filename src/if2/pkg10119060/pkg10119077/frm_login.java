@@ -16,6 +16,7 @@ public class frm_login extends javax.swing.JFrame {
         koneksi dbsetting;
         String driver,database,user,pass;
         Object tabel;
+        int count = 0 ;
     /**
      * Creates new form frm_login
      */
@@ -94,9 +95,22 @@ public class frm_login extends javax.swing.JFrame {
         btn_login.setBackground(new java.awt.Color(0, 255, 51));
         btn_login.setText("Login");
         btn_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_loginMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_loginMousePressed(evt);
+            }
+        });
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);
+            }
+        });
+        btn_login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_loginKeyPressed(evt);
             }
         });
 
@@ -224,7 +238,6 @@ public class frm_login extends javax.swing.JFrame {
          //ambil string dari jtextfield
         String username=txt_username.getText();
         String password=String.valueOf(txt_pass.getPassword());
-        
         //kondisi jika username kosong
         if (username.isEmpty() ) {
             JOptionPane.showMessageDialog(null,"Username tidak boleh kosong");
@@ -233,26 +246,32 @@ public class frm_login extends javax.swing.JFrame {
         //kondisi jika password kosong
         else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(null,"Password tidak boleh kosong");
-        }        
-        try{
-           
-            Connection kon = DriverManager.getConnection(database,user,pass);
-            Statement stt=kon.createStatement();
-            String SQL = "SELECT * FROM users WHERE username='"+username+"' AND password='"+password+"'";  
-            ResultSet res = stt.executeQuery(SQL);
+        }  
+        if(count < 3){
             
-            //kondisi jika data ada
-            if(res.next()){
-                usersession.set_nama(res.getString("nama_lengkap"));
-                //menampilkan gui dashboard
-                new frm_utama().setVisible(true);
-                //menutup gui login
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Username dan password yang anda masukkan salah!","Error",JOptionPane.ERROR_MESSAGE);
-            }        
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(this,"Login gagal\n"+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            try{
+                Connection kon = DriverManager.getConnection(database,user,pass);
+                Statement stt=kon.createStatement();
+                String SQL = "SELECT * FROM t_pengguna WHERE username='"+username+"' AND password='"+password+"'";  
+                ResultSet res = stt.executeQuery(SQL);
+
+                //kondisi jika data ada
+                if(res.next()){
+                    usersession.set_nama(res.getString("nama_lengkap"));
+                    //menampilkan gui dashboard
+                     JOptionPane.showMessageDialog(null,"Login Berhasil!");
+                    new frm_utama().setVisible(true);
+                    //menutup gui login
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Username dan password yang anda masukkan salah!","Error",JOptionPane.ERROR_MESSAGE);
+                }        
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this,"Login gagal\n"+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else{
+            System.exit(0);
         }
     }//GEN-LAST:event_btn_loginActionPerformed
 
@@ -263,6 +282,21 @@ public class frm_login extends javax.swing.JFrame {
         
         this.setVisible(false);
     }//GEN-LAST:event_btn_registerActionPerformed
+
+    private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btn_loginMouseClicked
+
+    private void btn_loginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_loginKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_loginKeyPressed
+
+    private void btn_loginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMousePressed
+        // TODO add your handling code here:
+          count ++;
+    }//GEN-LAST:event_btn_loginMousePressed
 
     /**
      * @param args the command line arguments
