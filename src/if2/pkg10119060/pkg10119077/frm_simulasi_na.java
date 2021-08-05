@@ -28,7 +28,7 @@ public class frm_simulasi_na extends javax.swing.JFrame {
         driver = dbsetting.SettingPanel("DBDriver"); 
         database = dbsetting.SettingPanel("DBDatabase");
         user = dbsetting.SettingPanel("DBUsername");
-        pass = dbsetting.SettingPanel("DBPassword ");
+        pass = dbsetting.SettingPanel("DBPassword");
         table_simulasi_na.setModel(tableModel);
         settableload();
         tampil_combo_kdmk();

@@ -26,7 +26,7 @@ public class frm_login extends javax.swing.JFrame {
         driver = dbsetting.SettingPanel("DBDriver"); 
         database = dbsetting.SettingPanel("DBDatabase");
         user = dbsetting.SettingPanel("DBUsername");
-        pass = dbsetting.SettingPanel("DBPassword ");
+        pass = dbsetting.SettingPanel("DBPassword");
         
         Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize=this.getSize();

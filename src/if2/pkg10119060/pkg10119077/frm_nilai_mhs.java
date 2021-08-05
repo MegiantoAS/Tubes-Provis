@@ -28,7 +28,7 @@ public class frm_nilai_mhs extends javax.swing.JFrame {
         driver = dbsetting.SettingPanel("DBDriver"); 
         database = dbsetting.SettingPanel("DBDatabase");
         user = dbsetting.SettingPanel("DBUsername");
-        pass = dbsetting.SettingPanel("DBPassword ");
+        pass = dbsetting.SettingPanel("DBPassword");
         tabel_nilai_mhs.setModel(tableModel);
         
         

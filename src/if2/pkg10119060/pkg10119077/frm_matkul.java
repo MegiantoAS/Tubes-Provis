@@ -26,7 +26,7 @@ import java.util.Date;
         driver = dbsetting.SettingPanel("DBDriver"); 
         database = dbsetting.SettingPanel("DBDatabase");
         user = dbsetting.SettingPanel("DBUsername");
-        pass = dbsetting.SettingPanel("DBPassword ");
+        pass = dbsetting.SettingPanel("DBPassword");
         tabel_matkul.setModel(tableModel);
         settableload();
     }
